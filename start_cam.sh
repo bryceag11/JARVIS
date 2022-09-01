@@ -17,13 +17,15 @@ if [ ! -f "$FILE" ]; then
 fi	
 
 #stop current uv4l services
-sudo service uv4l* stop
+#sudo service uv4l* stop
 
 #run streaming server in background
-exec sudo uv4l --syslog-host localhost --driver uvc --device-id $DEVICE_ID -n video0 /dev/uv4l --verbosity 8 -f --server-option --use-ssl=yes --server-option --ssl-private-key-file=$HOME/.ssh/selfsign.key --server-option --ssl-certificate-file=$HOME/.ssh/selfsign.crt --server-option --enable-webrtc=yes --server-option --enable-webrtc-video=yes &
+#exec sudo uv4l --syslog-host localhost --driver uvc --device-id $DEVICE_ID -n video0 /dev/uv4l --verbosity 8 -f --server-option --use-ssl=yes --server-option --ssl-private-key-file=$HOME/.ssh/selfsign.key --server-option --ssl-certificate-file=$HOME/.ssh/selfsign.crt --server-option --enable-webrtc=yes --server-option --enable-webrtc-video=yes
 
-sleep 15
+exec sudo uv4l --syslog-host localhost -external-driver --device-id $DEVICE_ID --verbosity 8 -f --server-option --use-ssl=yes --server-option --ssl-private-key-file=$HOME/.ssh/selfsign.key --server-option --ssl-certificate-file=$HOME/.ssh/selfsign.crt
+
+#sleep 15
 
 #Set camera resolution and format (not included here)
-v4l2-ctl --set-fmt-video=width=$WIDTH,height=$HEIGHT -d /dev/video0
+#v4l2-ctl --set-fmt-video=width=$WIDTH,height=$HEIGHT -d /dev/video0
 #v412-ctl --set-fmt-video=width=$WIDTH,height=$HEIGHT,pixelformat="H264" -d /dev/video0
