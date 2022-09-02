@@ -1,3 +1,3 @@
 #!/bin/bash
 
-service uv4l* stop
+pkill uv4l
