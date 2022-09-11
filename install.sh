@@ -1,34 +1,26 @@
 #!/bin/bash
 
-echo "Starting install..."
+echo "Starting Install/Setup..."
 
-cd ~/
-
-#update pi drivers
-apt-get update
-apt-get full-upgrade
+sudo apt update
+sudo apt full-upgrade -y
 
 #install vim
-apt-get install vim
+sudo apt install -y vim
 
-#install zoom
-sudo apt-get install libxcb-xtest0
-wget https://zoom.us/client/5.11.10.4400/zoom_x86_64.tar.xz
-tar xvf zoom_x86_64.tar.xz
-rm zoom_x86_64.tar.xz
+#install/enable ssh
+sudo apt install -y openssh
+sudo ufw allow ssh
 
-#install box86
-apt install git build-essential cmake
-git clone https://github.com/ptitSeb/box86
-cd ~/box86
-mkdir build
-cd build
-cmake .. -DRPI4=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo
-make -j$(nproc)
-make install
-systemctl restart systemd-binfmt
+#install ROS2
+echo "\nInstalling ROS2 packages..."
+apt-cache policy | grep universe
+sudo apt update
+sudo apt install curl gnupg lsb-release -y
+sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(source /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
+sudo apt update
+sudo apt upgrade -y
+sudo apt install -y ros-humble-desktop
 
-echo "Install finished"
-echo "Raspberry Pi will now reboot"
-
-reboot
+echo "Install/Setup Finished"
