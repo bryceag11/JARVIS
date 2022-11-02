@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>WebSDK Embedded CDN demo</title>
+  <title>ROBB Remote Interface</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://source.zoom.us/2.7.0/lib/vendor/react.min.js"></script>
   <script src="https://source.zoom.us/2.7.0/lib/vendor/react-dom.min.js"></script>
@@ -12,13 +12,68 @@
   <script src="./tools/vconsole.min.js"></script>
   <script src="./tools/token-tool.js"></script>
   <script src="./tools/cdn.js"></script>
-
+  <link rel="stylesheet" href="cdn.css">
 </head>
+<body onLoad="InitWebSocket()"></body>
 
 <body>
   <div id="ZoomEmbeddedApp"></div>
-  <b>Can insert buttons here somehow</b>
+  <div class="directional-buttons">
+    <button onClick="NavForward()" class="direction-button up">
+      <span class="visually-hidden">up</span>
+    </button>
+    <button onClick="NavLeft()" class="direction-button left">
+      <span class="visually-hidden">left</span>
+    </button>
+    <button onClick="NavRight()" class="direction-button right">
+      <span class="visually-hidden">right</span>
+    </button>
+    <button onClick="NavBackward()" class="direction-button down">
+      <span class="visually-hidden">down</span>
+    </button>
+  </div>
 
 </body>
+
+<!--Javascript functions-->
+<script>
+  function InitWebSocket () {
+    console.log("init web socket")
+    let socket = new WebSocket("wss://socketsbay.com/wss/v2/2/demo/");
+
+    socket.onopen = function(e) {
+    console.log("[open] Connection established");
+};
+socket.onmessage = function(event) {
+  console.log(`[message] Data received from server: ${event.data}`);
+};
+
+ } 
+ </script>
+
+<script>
+ function NavForward () {
+    console.log("Up button clicked");
+    socket.send("testtest")
+    console.log("msg sent")
+} 
+</script>
+<script>
+  function NavLeft () {
+     console.log("Left button clicked");
+ } 
+ </script>
+  <script>
+    function NavRight () {
+       console.log("Right button clicked");
+   } 
+   </script>
+<script>
+  function NavBackward () {
+     console.log("Down button clicked");
+ } 
+ </script>
+
+
 
 </html>
