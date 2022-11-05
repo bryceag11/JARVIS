@@ -15,6 +15,14 @@ if ser.is_open:
 else:
     print("Failed to connect to port " + dev)
 
-while True:
+ser.flush()
+
+for i in range(30):
   ser.write(0x77)
+  data = ser.readline()
+  print(data)
+  #ser.write(0x77)
   time.sleep(1000)
+
+ser.close()
+exit(1)
