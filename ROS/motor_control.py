@@ -27,8 +27,8 @@ def initialize_motors(ser):
         m.enable_timeout(ser)
         m.set_mode0(ser)
         m.zero_encoders(ser)
-        voltage = m.get_voltage(ser)
-        print("Voltage is at " + voltage + "V\n")
+        #voltage = m.get_voltage(ser)
+        #print("Voltage is at " + voltage + "V\n")
         print("Finished setup...")
     except:
         print("Setup failed... Exiting now...")
