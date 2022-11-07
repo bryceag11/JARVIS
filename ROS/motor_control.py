@@ -42,7 +42,7 @@ def stop_now(ser):
 #takes speeds between 1-100
 def go_forward(ser, speed):
     if speed > 0 and speed <= 100:
-        print("Driving forwards at " + speed + "% speed")
+        print("Driving forwards at " + str(speed) + "% speed")
         speed = int((speed/100) * 128 - 1)
         m.set_speed1(ser, speed)
         m.set_speed2(ser, speed)
@@ -50,21 +50,21 @@ def go_forward(ser, speed):
 #takes speeds between 1-100
 def go_backward(ser, speed):
     if speed > 0 and speed <= 100:
-        print("Driving backwards at " + speed + "% speed")
+        print("Driving backwards at " + str(speed) + "% speed")
         speed = 128 + int((speed/100) * 128 - 1)
         m.set_speed1(ser, speed)
         m.set_speed2(ser, speed)
 
 def turn_right(ser, speed):
     if speed > 0 and speed <= 100:
-        print("Turning right at " + speed + "% speed")
+        print("Turning right at " + str(speed) + "% speed")
         speed = int((speed/100) * 128 - 1)
         m.set_speed1(ser, speed)
         m.set_speed2(ser, (128+speed))
 
 def turn_left(ser, speed):
     if speed > 0 and speed <= 100:
-        print("Turning left at " + speed + "% speed")
+        print("Turning left at " + str(speed) + "% speed")
         speed = int((speed/100) * 128 - 1)
         m.set_speed1(ser, (128+speed))
         m.set_speed2(ser, speed)
