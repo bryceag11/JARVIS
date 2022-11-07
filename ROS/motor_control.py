@@ -12,7 +12,7 @@ def connect_motors(port):
     ser.open()
 
     #check if serial port is open
-    if ser.is_open():
+    if ser.is_open:
         print("Successfully connected to port " + port + "\n")
     else:
         print("Failed to connect to port " + port + "\n")
