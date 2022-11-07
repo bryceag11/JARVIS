@@ -77,26 +77,26 @@ initialize_motors(ser)
 
 #go forward for 5 seconds
 for i in range(5):
-    go_forward(ser, 100)
-    time.sleep(1000)
+    go_forward(ser, 0)
+    time.sleep(1)
 stop_now(ser)
 
 #go backward for 10 seconds
 for i in range(5):
     go_backward(ser, 50)
-    time.sleep(1000)
+    time.sleep(1)
 stop_now(ser)
 
 #turn right for 5 seconds
 for i in range(5):
-    turn_right(ser, 25)
-    time.sleep(1000)
+    turn_right(ser, 75)
+    time.sleep(1)
 stop_now(ser)
 
 #turn left for 5 seconds
 for i in range(5):
-    turn_left(25)
-    time.sleep(1000)
+    turn_left(75)
+    time.sleep(1)
 stop_now(ser)
 
 
