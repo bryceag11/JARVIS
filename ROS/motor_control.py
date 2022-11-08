@@ -81,13 +81,17 @@ ser = connect_motors(port)
 
 #go forward for 5 seconds#
 for i in range(5):
-    go_forward(ser, 50)
+    go_forward(ser, 100)
     time.sleep(1)
 stop_now(ser)
 
+for i in range(5):
+    stop_now(ser)
+    time.sleep(1)
+
 #go backward for 10 seconds
 for i in range(5):
-    go_backward(ser, 50)
+    go_backward(ser, 100)
     time.sleep(1)
 stop_now(ser)
 """
