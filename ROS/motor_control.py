@@ -39,21 +39,24 @@ def stop_now(ser):
     m.set_speed1(ser, 128)
     m.set_speed2(ser, 128)
 
-#takes speeds between 1-100
-def go_backward(ser, speed):
-    if speed > 0 and speed <= 100:
-        print("Driving forwards at " + str(speed) + "% speed")
-        speed = int((speed/100) * 128 - 1)
-        m.set_speed1(ser, speed)
-        m.set_speed2(ser, speed)
+#takes speeds between 0-100
+def go_forward(ser, speed):
+
+    motor_speed = int(((100-speed)/100) * 128)
+    print("Before: " + str(speed) + " , After: " + str(motor_speed))
+
+    m.set_speed1(ser, motor_speed)
+    m.set_speed2(ser, motor_speed)
 
 #takes speeds between 1-100
-def go_forward(ser, speed):
-    if speed > 0 and speed <= 100:
-        print("Driving backwards at " + str(speed) + "% speed")
-        speed = 128 + int((speed/100) * 128 - 1)
-        m.set_speed1(ser, speed)
-        m.set_speed2(ser, speed)
+def go_backward(ser, speed):
+
+    motor_speed = int((speed/100) * 127) + 128
+    print("Before: " + str(speed) + " , After: " + str(motor_speed))
+
+    m.set_speed1(ser, motor_speed)
+    m.set_speed2(ser, motor_speed)
+
 
 def turn_right(ser, speed):
     if speed > 0 and speed <= 100:
@@ -70,12 +73,18 @@ def turn_left(ser, speed):
         m.set_speed2(ser, speed)
 
 
+#TESTING
+for i in range(0,101,1):
+    go_backward(0,i)
+exit()
+
+
 #main
 port = '/dev/ttyUSB0'
 ser = connect_motors(port)
-initialize_motors(ser)
+#initialize_motors(ser)
 
-#go forward for 5 seconds
+#go forward for 5 seconds#
 for i in range(5):
     go_forward(ser, 0)
     time.sleep(1)
