@@ -73,11 +73,6 @@ def turn_left(ser, speed):
         m.set_speed2(ser, speed)
 
 
-#TESTING
-for i in range(0,101,1):
-    go_backward(0,i)
-exit()
-
 
 #main
 port = '/dev/ttyUSB0'
@@ -86,7 +81,7 @@ ser = connect_motors(port)
 
 #go forward for 5 seconds#
 for i in range(5):
-    go_forward(ser, 0)
+    go_forward(ser, 50)
     time.sleep(1)
 stop_now(ser)
 
@@ -95,7 +90,7 @@ for i in range(5):
     go_backward(ser, 50)
     time.sleep(1)
 stop_now(ser)
-
+"""
 #turn right for 5 seconds
 for i in range(10):
     turn_right(ser, 75)
@@ -107,7 +102,7 @@ for i in range(10):
     turn_left(75)
     time.sleep(1)
 stop_now(ser)
-
+"""
 
 ser.close()
 exit()
