@@ -1,12 +1,7 @@
 import asyncio
- 
 import websockets
-
-import socket
-IPAddr=socket.gethostbyname(socket.getfqdn())
-print(IPAddr)
-
 import netifaces as ni
+
 ip = ni.ifaddresses('wlo1')[ni.AF_INET][0]['addr']
 print("My IP is: " + ip)
 
