@@ -15,7 +15,7 @@
     "js-base64": "^3.6.0",
     "jsrsasign": "^10.3.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.2",
+    "react-scripts": "^4.0.2",
     "web-vitals": "1.1.1"
   },
   "scripts": {
