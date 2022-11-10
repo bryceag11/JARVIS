@@ -120,9 +120,9 @@ test_forward(ser, 30, 5)
 test_stop_now(ser, 5)
 test_backward(ser, 30, 5)
 test_stop_now(ser, 5)
-test_turn_right(ser, 25, 10)
+test_turn_right(ser, 25, 7.8)
 test_stop_now(ser, 5)
-test_turn_left(ser, 25, 10)
+test_turn_left(ser, 25, 3.9)
 test_stop_now(ser, 5)
 
 
