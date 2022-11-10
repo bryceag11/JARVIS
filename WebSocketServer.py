@@ -1,7 +1,12 @@
 import asyncio
  
 import websockets
- 
+
+import socket
+hostname=socket.gethostname()
+IPAddr=socket.gethostbyname(hostname)
+print("IP: " + IPAddr)
+
 # create handler for each connection
 data = ""
 
@@ -12,7 +17,7 @@ async def handler(websocket, path):
         print(reply)
         await websocket.send(reply)
  
-start_server = websockets.serve(handler, "localhost", 8000)
+start_server = websockets.serve(handler, IPAddr, 8000)
  
 asyncio.get_event_loop().run_until_complete(start_server)
  
