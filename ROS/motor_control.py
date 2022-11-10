@@ -42,7 +42,7 @@ def stop_now(ser):
 def go_forward(ser, speed):
 
     motor_speed = int(((100-speed)/100) * 128)
-    print("Before: " + str(speed) + " , After: " + str(motor_speed))
+    print("Going Forwards... Before: " + str(speed) + " , After: " + str(motor_speed))
 
     m.set_speed1(ser, motor_speed)
     m.set_speed2(ser, motor_speed)
@@ -51,7 +51,7 @@ def go_forward(ser, speed):
 def go_backward(ser, speed):
 
     motor_speed = int((speed/100) * 127) + 128
-    print("Before: " + str(speed) + " , After: " + str(motor_speed))
+    print("Going Backwards... Before: " + str(speed) + " , After: " + str(motor_speed))
 
     m.set_speed1(ser, motor_speed)
     m.set_speed2(ser, motor_speed)
@@ -62,6 +62,8 @@ def turn_right(ser, speed):
     forward_speed = int(((100-speed)/100) * 128)
     backward_speed = int((speed/100) * 127) + 128
 
+    print("Turning Right... Before: " + str(speed) + " , After: F: " + str(forward_speed) + " , B: " + str(backward_speed))
+
     m.set_speed1(ser, forward_speed)
     m.set_speed2(ser, backward_speed)
 
@@ -70,6 +72,8 @@ def turn_left(ser, speed):
 
     forward_speed = int(((100-speed)/100) * 128)
     backward_speed = int((speed/100) * 127) + 128
+
+    print("Turning Left... Before: " + str(speed) + " , After: F: " + str(forward_speed) + " , B: " + str(backward_speed))
 
     m.set_speed1(ser, forward_speed)
     m.set_speed2(ser, backward_speed)
