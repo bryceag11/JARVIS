@@ -14,6 +14,7 @@
   <script src="./tools/cdn.js"></script>
   <link rel="stylesheet" href="cdn.css">
 </head>
+
 <body onLoad="InitWebSocket()"></body>
 
 <body>
@@ -37,42 +38,53 @@
 
 <!--Javascript functions-->
 <script>
-  function InitWebSocket () {
+
+let socket = new WebSocket("ws://localhost:8000");
+  function InitWebSocket() {
     console.log("init web socket")
-    let socket = new WebSocket("wss://socketsbay.com/wss/v2/2/demo/");
 
-    socket.onopen = function(e) {
-    console.log("[open] Connection established");
-};
-socket.onmessage = function(event) {
-  console.log(`[message] Data received from server: ${event.data}`);
-};
+    socket.onopen = function (e) {
+      console.log("[open] Connection established");
+    };
+    socket.onmessage = function (event) {
+      console.log(`[message] Data received from server: ${event.data}`);
+    };
+    socket.onclose = function (event) {
+      console.log("socket closed" , event);
+    };
 
- } 
- </script>
+  }
 
-<script>
- function NavForward () {
+  function isOpen(socket) { return socket.readyState === socket.OPEN }
+  function wsSend(msg) {
+    if (isOpen(socket)) {
+      socket.send(msg);
+      console.log("msg sent");
+    }
+    else {
+      console.log("ERROR: socket is closed");
+    }
+  }
+  function NavForward() {
     console.log("Up button clicked");
-    socket.send("testtest")
-    console.log("msg sent")
-} 
+    wsSend("FORWARD");
+  }
+
+  function NavLeft() {
+    console.log("Left button clicked");
+    wsSend("LEFT");
+  }
+
+  function NavRight() {
+    console.log("Right button clicked");
+    wsSend("RIGHT");
+  }
+
+  function NavBackward() {
+    console.log("Down button clicked");
+    wsSend("BACKWARD");
+  } 
 </script>
-<script>
-  function NavLeft () {
-     console.log("Left button clicked");
- } 
- </script>
-  <script>
-    function NavRight () {
-       console.log("Right button clicked");
-   } 
-   </script>
-<script>
-  function NavBackward () {
-     console.log("Down button clicked");
- } 
- </script>
 
 
 
