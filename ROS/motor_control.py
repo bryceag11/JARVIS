@@ -99,13 +99,13 @@ def test_turn_right(ser, speed, seconds):
     for i in range(seconds):
         turn_right(ser, speed)
         time.sleep(1)
-        print(i + " seconds...")
+        print(str(i) + " seconds...")
     stop_now(ser)
 
 def test_turn_left(ser, speed, seconds):
     for i in range(seconds):
         turn_left(ser, speed)
-        print(i + " seconds...")
+        print(str(i) + " seconds...")
         time.sleep(1)
     stop_now(ser)
 
