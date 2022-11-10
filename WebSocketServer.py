@@ -3,9 +3,8 @@ import asyncio
 import websockets
 
 import socket
-hostname=socket.gethostname()
-IPAddr=socket.gethostbyname(hostname)
-print("IP: " + IPAddr)
+IPAddr=socket.gethostbyname(socket.getfqdn())
+print(IPAddr)
 
 # create handler for each connection
 data = ""
