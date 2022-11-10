@@ -39,33 +39,22 @@ def stop_now(ser):
     m.set_speed2(ser, 128)
 
 #takes speeds between 0-100
-def go_forward(ser, speed):
-
-    motor_speed = int(((100-speed)/100) * 128)
-    print("Going Forwards... Before: " + str(speed) + " , After: " + str(motor_speed))
-
-    m.set_speed1(ser, motor_speed)
-    m.set_speed2(ser, motor_speed)
-
-#takes speeds between 0-100
 def go_backward(ser, speed):
 
-    motor_speed = int((speed/100) * 127) + 128
+    motor_speed = int(((100-speed)/100) * 128)
     print("Going Backwards... Before: " + str(speed) + " , After: " + str(motor_speed))
 
     m.set_speed1(ser, motor_speed)
     m.set_speed2(ser, motor_speed)
 
 #takes speeds between 0-100
-def turn_right(ser, speed):
+def go_forward(ser, speed):
 
-    forward_speed = int(((100-speed)/100) * 128)
-    backward_speed = int((speed/100) * 127) + 128
+    motor_speed = int((speed/100) * 127) + 128
+    print("Going Forwards... Before: " + str(speed) + " , After: " + str(motor_speed))
 
-    print("Turning Right... Before: " + str(speed) + " , After: F: " + str(forward_speed) + " , B: " + str(backward_speed))
-
-    m.set_speed1(ser, forward_speed)
-    m.set_speed2(ser, backward_speed)
+    m.set_speed1(ser, motor_speed)
+    m.set_speed2(ser, motor_speed)
 
 #takes speeds between 0-100
 def turn_left(ser, speed):
@@ -74,6 +63,17 @@ def turn_left(ser, speed):
     backward_speed = int((speed/100) * 127) + 128
 
     print("Turning Left... Before: " + str(speed) + " , After: F: " + str(forward_speed) + " , B: " + str(backward_speed))
+
+    m.set_speed1(ser, forward_speed)
+    m.set_speed2(ser, backward_speed)
+
+#takes speeds between 0-100
+def turn_right(ser, speed):
+
+    forward_speed = int(((100-speed)/100) * 128)
+    backward_speed = int((speed/100) * 127) + 128
+
+    print("Turning Right... Before: " + str(speed) + " , After: F: " + str(forward_speed) + " , B: " + str(backward_speed))
 
     m.set_speed1(ser, forward_speed)
     m.set_speed2(ser, backward_speed)
@@ -99,11 +99,13 @@ def test_turn_right(ser, speed, seconds):
     for i in range(seconds):
         turn_right(ser, speed)
         time.sleep(1)
+        print(i + " seconds...")
     stop_now(ser)
 
 def test_turn_left(ser, speed, seconds):
     for i in range(seconds):
         turn_left(ser, speed)
+        print(i + " seconds...")
         time.sleep(1)
     stop_now(ser)
 
