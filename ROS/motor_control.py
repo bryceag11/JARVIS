@@ -96,6 +96,7 @@ def test_backward(ser, speed, seconds):
     stop_now(ser)
 
 def test_turn_right(ser, speed, seconds):
+    
     for i in range(seconds):
         turn_right(ser, speed)
         time.sleep(1)
@@ -103,11 +104,31 @@ def test_turn_right(ser, speed, seconds):
     stop_now(ser)
 
 def test_turn_left(ser, speed, seconds):
+    
     for i in range(seconds):
         turn_left(ser, speed)
         print(str(i) + " seconds...")
         time.sleep(1)
     stop_now(ser)
+
+def get_instruction():
+    
+
+
+
+def nav():
+    #new thread
+    a = get_instruction()
+    #reset a
+    if a:
+        #case based on a
+        if not object_detected():
+            #allow all cases
+        else:
+            #allow turning only
+            #send feedback to server...
+
+
 
 
 
@@ -116,14 +137,16 @@ port = '/dev/ttyUSB0'
 ser = connect_motors(port)
 initialize_motors(ser)
 
-test_forward(ser, 30, 5)
+time.sleep(10)
+
+test_forward(ser, 50, 10)
 test_stop_now(ser, 5)
-test_backward(ser, 30, 5)
+test_backward(ser, 50, 10)
 test_stop_now(ser, 5)
-test_turn_right(ser, 25, 7.8)
-test_stop_now(ser, 5)
-test_turn_left(ser, 25, 3.9)
-test_stop_now(ser, 5)
+#test_turn_right(ser, 25, 7.8)
+#test_stop_now(ser, 5)
+#test_turn_left(ser, 25, 3.9)
+#test_stop_now(ser, 5)
 
 
 
