@@ -115,7 +115,7 @@ def get_instruction():
     
 
 
-
+"""
 def nav():
     #new thread
     a = get_instruction()
@@ -127,7 +127,7 @@ def nav():
         else:
             #allow turning only
             #send feedback to server...
-
+"""
 
 
 
