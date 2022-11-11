@@ -111,7 +111,7 @@ def test_turn_left(ser, speed, seconds):
         time.sleep(1)
     stop_now(ser)
 
-def get_instruction():
+#def get_instruction():
     
 
 
