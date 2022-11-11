@@ -115,19 +115,18 @@ def get_instruction():
     
 
 
-"""
-def nav():
-    #new thread
-    a = get_instruction()
-    #reset a
-    if a:
-        #case based on a
-        if not object_detected():
-            #allow all cases
-        else:
-            #allow turning only
-            #send feedback to server...
-"""
+
+#def nav():
+#    #new thread
+#    a = get_instruction()
+#    #reset a
+#    if a:
+#        #case based on a
+#        if not object_detected():
+#            #allow all cases
+#        else:
+#            #allow turning only
+#            #send feedback to server...
 
 
 
