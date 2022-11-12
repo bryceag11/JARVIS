@@ -1,0 +1,5 @@
+[console_scripts]
+listener = server_to_motors.subscriber_member_function:main
+object_talker = server_to_motors.publisher_object_detection:main
+talker = server_to_motors.publisher_member_function:main
+
