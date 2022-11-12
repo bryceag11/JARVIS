@@ -7,7 +7,7 @@ print("NUC IP is: " + nucIP)
 
 try:
     rpiWS = websockets.WebSocket()
-    rpiWS.connect("ws://10.163.149.122")
+    rpiWS.connect("ws://10.163.149.122:8080")
     rpiWS.send(nucIP)
 except:
     print("connection to raspberry pi failed")
