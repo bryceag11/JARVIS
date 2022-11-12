@@ -5,12 +5,15 @@ import netifaces as ni
 nucIP = ni.ifaddresses('wlo1')[ni.AF_INET][0]['addr']
 print("NUC IP is: " + nucIP)
 
-try:
-    rpiWS = websockets.WebSocket()
-    rpiWS.connect("ws://10.163.149.122:8080")
-    rpiWS.send(nucIP)
-except:
-    print("connection to raspberry pi failed")
+
+async def connectRpi():
+    uri = "ws://10.163.149.122:8080"
+    async with websockets.connect(uri) as websocket:
+        await websocket.send(nucIP)
+        print("IP sent")
+
+if __name__ == "__main__":
+    asyncio.run(connectRpi())
  
 # create handler for each connection
 data = ""
