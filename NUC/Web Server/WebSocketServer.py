@@ -1,6 +1,16 @@
 import asyncio
- 
 import websockets
+import netifaces as ni
+
+nucIP = ni.ifaddresses('wlo1')[ni.AF_INET][0]['addr']
+print("NUC IP is: " + nucIP)
+
+try:
+    rpiWS = websockets.WebSocket()
+    rpiWS.connect("ws://echo.websocket.events")
+    rpiWS.send(nucIP)
+except:
+    print("connection to raspberry pi failed")
  
 # create handler for each connection
 data = ""
