@@ -35,7 +35,7 @@ class ServerPublisher(Node):
     def __init__(self):
         super().__init__('server_publisher')
         self.publisher_ = self.create_publisher(String, 'controls', 10)
-        timer_period = 0.1  # seconds
+        timer_period = 0.5  # seconds
         self.timer = self.create_timer(timer_period, self.timer_callback)
         
     def timer_callback(self):

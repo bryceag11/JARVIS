@@ -88,7 +88,8 @@ def initialize_motors(ser):
 
 #stops motors immediately
 def stop_now(ser):
-    ser.flush()
+    #ser.flush()
+    print("Stopping now...")
     #set_speed1(ser, 128)
     #set_speed2(ser, 128)
 
@@ -143,16 +144,27 @@ class MotorControlSubscriber(Node):
         self.subscription  # prevent unused variable warning
         self.subscription2 # prevent unused variable warning
         self.object_detected = "0"
+        #self.wait_count = 0
 
     def object_detected(self, msg):
-        #self.get_logger().info('I heard: "%s"' % msg.data)
-        self.object_detected = msg.data
+        self.get_logger().info('I heard: "%s"' % msg.data)
+        #self.object_detected = msg.data
+        
+        #if msg.data == "1" and self.wait_count == 0:
+        #    self.wait_count = 5
+        #    self.object_detected = "1"
+        #elif self.wait_count > 0:
+        #    self.wait_count -= 1
+        #    #object_detected stays the same "1"
+        #else: #other cases
+        #    self.object_detected = "0"
+
 
     def motor_instruct(self, msg):
         ser = 0 #placeholder
 
         if self.object_detected == "0":
-
+        
             #self.get_logger().info('I heard: "%s"' % msg.data)
             if msg.data == "W":
                 go_forward(ser, 50)
@@ -164,9 +176,10 @@ class MotorControlSubscriber(Node):
             elif msg.data == "S":
                 go_backward(ser, 50)
             else:
-                stop_now()
+                stop_now(ser)
         else:
             self.get_logger().info('Object Detected...')
+            stop_now(ser)
             #time.sleep(2) #Pause for x seconds??
 
 
