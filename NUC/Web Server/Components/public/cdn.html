@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>ROBB Remote Interface</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://source.zoom.us/2.7.0/lib/vendor/react.min.js"></script>
+  <script src="https://source.zoom.us/2.7.0/lib/vendor/react-dom.min.js"></script>
+  <script src="https://source.zoom.us/2.7.0/zoom-meeting-embedded-2.7.0.min.js"></script>
+  <script src="./tools/tool.js"></script>
+  <script src="./tools/vconsole.min.js"></script>
+  <script src="./tools/token-tool.js"></script>
+  <script src="./tools/cdn.js"></script>
+  <link rel="stylesheet" href="cdn.css">
+</head>
+
+<body onLoad="InitWebSocket()"></body>
+
+<body>
+  <div id="ZoomEmbeddedApp"></div>
+  <div class="directional-buttons">
+    <button onClick="NavForward()" class="direction-button up">
+      <span class="visually-hidden">up</span>
+    </button>
+    <button onClick="NavLeft()" class="direction-button left">
+      <span class="visually-hidden">left</span>
+    </button>
+    <button onClick="NavRight()" class="direction-button right">
+      <span class="visually-hidden">right</span>
+    </button>
+    <button onClick="NavBackward()" class="direction-button down">
+      <span class="visually-hidden">down</span>
+    </button>
+  </div>
+
+</body>
+
+<!--Javascript functions-->
+<script>
+
+let socket = new WebSocket("ws://10.47.205.100:8000");
+  function InitWebSocket() {
+    console.log("init web socket")
+
+    socket.onopen = function (e) {
+      console.log("[open] Connection established");
+    };
+    socket.onmessage = function (event) {
+      console.log(`[message] Data received from server: ${event.data}`);
+    };
+    socket.onclose = function (event) {
+      console.log("socket closed" , event);
+    };
+
+  }
+
+  function isOpen(socket) { return socket.readyState === socket.OPEN }
+  function wsSend(msg) {
+    if (isOpen(socket)) {
+      socket.send(msg);
+      console.log("msg sent");
+    }
+    else {
+      console.log("ERROR: socket is closed");
+    }
+  }
+  function NavForward() {
+    console.log("Up button clicked");
+    wsSend("FORWARD");
+  }
+
+  function NavLeft() {
+    console.log("Left button clicked");
+    wsSend("LEFT");
+  }
+
+  function NavRight() {
+    console.log("Right button clicked");
+    wsSend("RIGHT");
+  }
+
+  function NavBackward() {
+    console.log("Down button clicked");
+    wsSend("BACKWARD");
+  } 
+</script>
+
+
+
+</html>
