@@ -67,22 +67,22 @@ let socket = new WebSocket("ws://10.47.205.100:8000");
   }
   function NavForward() {
     console.log("Up button clicked");
-    wsSend("FORWARD");
+    wsSend("W");
   }
 
   function NavLeft() {
     console.log("Left button clicked");
-    wsSend("LEFT");
+    wsSend("A");
   }
 
   function NavRight() {
     console.log("Right button clicked");
-    wsSend("RIGHT");
+    wsSend("D");
   }
 
   function NavBackward() {
     console.log("Down button clicked");
-    wsSend("BACKWARD");
+    wsSend("S");
   } 
 </script>
 
