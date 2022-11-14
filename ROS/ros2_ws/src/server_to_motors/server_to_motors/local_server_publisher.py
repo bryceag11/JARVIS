@@ -14,20 +14,14 @@
 
 #originally named publisher_member_function.py
 
+import asyncio
+import websockets
+import netifaces as ni
+import time
+
 import rclpy
 from rclpy.node import Node
-from std_msgs.msg import String
-
-#class MotorCommandPublisher(Node):
-#    def __init__(self):
-#        super.__init__('motor_command_publisher')
-#        self.publisher_ = self.create_publisher(String, 'controls', 10)
-#        #self.subscription = self.create_subscription(int, 'topic', self.pub_command(self), 10)
-#       timer_period = 0.5 # seconds
-#        self.timer = self.create_timer(timer_period, self.timer_callback)
-#    
-#    def _command(self):
-#        
+from std_msgs.msg import String   
 
 
 class ServerPublisher(Node):
@@ -35,15 +29,39 @@ class ServerPublisher(Node):
     def __init__(self):
         super().__init__('server_publisher')
         self.publisher_ = self.create_publisher(String, 'controls', 10)
-        timer_period = 0.5  # seconds
-        self.timer = self.create_timer(timer_period, self.timer_callback)
+        #timer_period = 0.5  # seconds
+        #self.timer = self.create_timer(timer_period, self.timer_callback)
+        self.data = ""
+        self.start = self.start_server()
         
-    def timer_callback(self):
-        msg = String()
-        msg.data = "W" #get from the socket connection later
-        self.publisher_.publish(msg)
-        self.get_logger().info('Publishing: "%s"' % msg.data)
+    #def timer_callback(self):
+    #    msg = String()
+    #    msg.data = self.data #get from the socket connection later
+    #    self.publisher_.publish(msg)
+    #    self.get_logger().info('Publishing: "%s"' % msg.data)
         
+    def start_server():
+
+        nucIP = ni.ifaddresses('wlo1')[ni.AF_INET][0]['addr']
+        print("NUC IP is: " + nucIP)
+    
+        start_server = websockets.serve(handler, nucIP, 8000)
+
+        while(True): 
+            try:
+                asyncio.get_event_loop().run_until_complete(start_server)
+            except:
+                time.sleep(1)
+        asyncio.get_event_loop().run_forever()
+
+    async def handler(websocket, path):
+        while(True):
+            #self.data = await websocket.recv()
+            #self.publisher_.publish(self.data)
+            self.publisher_.publish(await websocket.recv())
+            reply = f"Data recieved as:  {data}"
+            print(reply)
+            await websocket.send(reply)
 
 def main(args=None):
 

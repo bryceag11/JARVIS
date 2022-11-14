@@ -74,7 +74,10 @@ def connect_to_motors(port='/dev/ttyUSB0'):
         exit()
     return ser
 
-def initialize_motors(ser):
+def initialize_motors():
+
+    ser = connect_to_motors()
+
     print("Initializing motors to default settings...")
     try:
         ser.flush()
@@ -82,16 +85,17 @@ def initialize_motors(ser):
         set_mode0(ser)
         zero_encoders(ser)
         print("Finished setup...")
+        return ser
     except:
         print("Setup failed... Exiting now...\n")
         exit()
 
 #stops motors immediately
 def stop_now(ser):
-    #ser.flush()
+    ser.flush()
     print("Stopping now...")
-    #set_speed1(ser, 128)
-    #set_speed2(ser, 128)
+    set_speed1(ser, 128)
+    set_speed2(ser, 128)
 
 #takes speeds between 0-100
 def go_forward(ser, speed):
@@ -99,8 +103,8 @@ def go_forward(ser, speed):
     motor_speed = int((speed/100) * 127) + 128
     print("Going Forwards... Before: " + str(speed) + " , After: " + str(motor_speed))
 
-    #set_speed1(ser, motor_speed)
-    #set_speed2(ser, motor_speed)
+    set_speed1(ser, motor_speed)
+    set_speed2(ser, motor_speed)
 
 #takes speeds between 0-100
 def go_backward(ser, speed):
@@ -108,8 +112,8 @@ def go_backward(ser, speed):
     motor_speed = int(((100-speed)/100) * 128)
     print("Going Backwards... Before: " + str(speed) + " , After: " + str(motor_speed))
 
-    #set_speed1(ser, motor_speed)
-    #set_speed2(ser, motor_speed)
+    set_speed1(ser, motor_speed)
+    set_speed2(ser, motor_speed)
 
 #takes speeds between 0-100
 def turn_left(ser, speed):
@@ -119,8 +123,8 @@ def turn_left(ser, speed):
 
     print("Turning Left... Before: " + str(speed) + " , After: F: " + str(forward_speed) + " , B: " + str(backward_speed))
 
-    #set_speed1(ser, forward_speed)
-    #set_speed2(ser, backward_speed)
+    set_speed1(ser, forward_speed)
+    set_speed2(ser, backward_speed)
 
 #takes speeds between 0-100
 def turn_right(ser, speed):
@@ -130,8 +134,8 @@ def turn_right(ser, speed):
 
     print("Turning Right... Before: " + str(speed) + " , After: F: " + str(forward_speed) + " , B: " + str(backward_speed))
 
-    #set_speed1(ser, forward_speed)
-    #set_speed2(ser, backward_speed)
+    set_speed1(ser, forward_speed)
+    set_speed2(ser, backward_speed)
 
 
 
@@ -144,6 +148,7 @@ class MotorControlSubscriber(Node):
         self.subscription  # prevent unused variable warning
         self.subscription2 # prevent unused variable warning
         self.object_detected = "0"
+        self.ser = initialize_motors()
         #self.wait_count = 0
 
     def object_detected(self, msg):
@@ -161,25 +166,25 @@ class MotorControlSubscriber(Node):
 
 
     def motor_instruct(self, msg):
-        ser = 0 #placeholder
+        #ser = 0 #placeholder
 
         if self.object_detected == "0":
         
             #self.get_logger().info('I heard: "%s"' % msg.data)
             if msg.data == "W":
-                go_forward(ser, 50)
+                go_forward(self.ser, 50)
                 #self.get_logger().info('Going forward')
             elif msg.data == "A":
-                turn_left(ser, 50)
+                turn_left(self.ser, 50)
             elif msg.data == "D":
-                turn_right(ser, 50)
+                turn_right(self.ser, 50)
             elif msg.data == "S":
-                go_backward(ser, 50)
+                go_backward(self.ser, 50)
             else:
-                stop_now(ser)
+                stop_now(self.ser)
         else:
             self.get_logger().info('Object Detected...')
-            stop_now(ser)
+            stop_now(self.ser)
             #time.sleep(2) #Pause for x seconds??
 
 
