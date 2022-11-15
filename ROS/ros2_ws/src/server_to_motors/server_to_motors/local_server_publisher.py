@@ -40,12 +40,12 @@ class ServerPublisher(Node):
     #    self.publisher_.publish(msg)
     #    self.get_logger().info('Publishing: "%s"' % msg.data)
         
-    def start_server():
+    def start_server(self):
 
         nucIP = ni.ifaddresses('wlo1')[ni.AF_INET][0]['addr']
         print("NUC IP is: " + nucIP)
     
-        start_server = websockets.serve(handler, nucIP, 8000)
+        start_server = websockets.serve(self.handler, nucIP, 8000)
 
         while(True): 
             try:
@@ -54,12 +54,14 @@ class ServerPublisher(Node):
                 time.sleep(1)
         asyncio.get_event_loop().run_forever()
 
-    async def handler(websocket, path):
+    async def handler(self, websocket, path):
         while(True):
             #self.data = await websocket.recv()
             #self.publisher_.publish(self.data)
-            self.publisher_.publish(await websocket.recv())
-            reply = f"Data recieved as:  {data}"
+            msg = String()
+            msg.data = await websocket.recv()
+            self.publisher_.publish(msg)
+            reply = f"Data recieved as:  {msg.data}"
             print(reply)
             await websocket.send(reply)
 
