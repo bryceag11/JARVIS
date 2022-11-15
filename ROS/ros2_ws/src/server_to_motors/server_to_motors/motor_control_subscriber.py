@@ -54,6 +54,9 @@ def disable_timeout(ser):
 def enable_timeout(ser):
     ser.write(bytearray([0, 57]))
 
+def set_acceleration(ser, val):
+    ser.write(bytearray([0, 51, val]))
+
 ###############################
 # Motor Setup/Initialization
 ###############################
@@ -84,6 +87,7 @@ def initialize_motors():
         enable_timeout(ser)
         set_mode0(ser)
         zero_encoders(ser)
+        set_acceleration(ser, 1)
         print("Finished setup...")
         return ser
     except:
@@ -98,19 +102,19 @@ def stop_now(ser):
     set_speed2(ser, 128)
 
 #takes speeds between 0-100
-def go_forward(ser, speed):
+def go_backward(ser, speed):
 
     motor_speed = int((speed/100) * 127) + 128
-    print("Going Forwards... Before: " + str(speed) + " , After: " + str(motor_speed))
+    print("Going Backwards... Before: " + str(speed) + " , After: " + str(motor_speed))
 
     set_speed1(ser, motor_speed)
     set_speed2(ser, motor_speed)
 
 #takes speeds between 0-100
-def go_backward(ser, speed):
+def go_forward(ser, speed):
 
     motor_speed = int(((100-speed)/100) * 128)
-    print("Going Backwards... Before: " + str(speed) + " , After: " + str(motor_speed))
+    print("Going Forwards... Before: " + str(speed) + " , After: " + str(motor_speed))
 
     set_speed1(ser, motor_speed)
     set_speed2(ser, motor_speed)
@@ -134,8 +138,8 @@ def turn_right(ser, speed):
 
     print("Turning Right... Before: " + str(speed) + " , After: F: " + str(forward_speed) + " , B: " + str(backward_speed))
 
-    set_speed1(ser, forward_speed)
-    set_speed2(ser, backward_speed)
+    set_speed2(ser, forward_speed)
+    set_speed1(ser, backward_speed)
 
 
 
@@ -175,9 +179,9 @@ class MotorControlSubscriber(Node):
                 go_forward(self.ser, 50)
                 #self.get_logger().info('Going forward')
             elif msg.data == "A":
-                turn_left(self.ser, 50)
+                turn_left(self.ser, 25)
             elif msg.data == "D":
-                turn_right(self.ser, 50)
+                turn_right(self.ser, 25)
             elif msg.data == "S":
                 go_backward(self.ser, 50)
             else:
