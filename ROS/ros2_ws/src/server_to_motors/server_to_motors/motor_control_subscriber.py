@@ -186,6 +186,8 @@ class MotorControlSubscriber(Node):
                 go_backward(self.ser, 50)
             else:
                 stop_now(self.ser)
+            time.sleep(0.1)
+            stop_now(self.ser)
         else:
             self.get_logger().info('Object Detected...')
             stop_now(self.ser)
