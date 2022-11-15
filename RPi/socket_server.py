@@ -27,7 +27,7 @@ asyncio.get_event_loop().run_until_complete(start_server)
         #time.sleep(1)
 asyncio.get_event_loop().run_forever()
 
-f = open("pi-redirect.html", "w") 
+f = open("index.html", "w") 
 f.write("<!DOCTYPE html>\n \
 <html>\n \
     \t<head>\n \
