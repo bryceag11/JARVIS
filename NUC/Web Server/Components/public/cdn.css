@@ -31,7 +31,7 @@
   /* base button */
   .direction-button {
     /* the button colours */
-    color: rgb(55, 50, 50);
+    color: rgb(255, 255, 255);
     /* since there's no text, we can use the color value for the background */
     background: currentcolor;
     /* clears default button styles */
@@ -68,19 +68,19 @@
     /* same border-based triangle trick as before */
     border: 2rem solid transparent;
     /* using color value for border-color to make it easier to change */
-    color: rgba(255, 250, 250, 0.6);
+    color: rgba(0, 0, 0, 0.6);
   }
   
   /* when the button is hovered */
   .direction-button:hover {
     /* make the button a different color */
-    color: rgb(85,55,55);
+    color: rgb(172, 170, 170);
   }
   
   /* when the button is pressed */
   .direction-button:active:after {
     /* make the inner triangle a different color! */
-    color: rgb(255, 152, 152);
+    color: rgb(255, 0, 0);
   }
   
   /* individual button styles */
@@ -168,6 +168,171 @@
     bottom: -1rem;
   }
   
+  /* camera buttons */
+  .camera-buttons {
+    /* Define the size of the grid */
+    /* Other things rely on this! Change at your own peril! */
+    width: 16rem;
+    height: 16rem;
+    /* display the buttons in a grid */
+    display: grid;
+    /* leave a little gap between columns/rows */
+    grid-gap: 0.5rem;
+    /* define a 3 x 3 grid with middle column/row larger */
+    grid-template-columns: 45fr 60fr 45fr;
+    grid-template-rows: 45fr 60fr 45fr;
+    /* name the cells in the grid */
+    grid-template-areas: ".....  up2  ....."
+                         "left2  ..  right2"
+                         ".... down2 .....";    
+  }
+
+  /* base button */
+  .camera-button {
+    /* the button colours */
+    color: rgb(255, 255, 255);
+    /* since there's no text, we can use the color value for the background */
+    background: currentcolor;
+    /* clears default button styles */
+    border: none;
+    /* makes sure the triangles are moved relative to the button */
+    position: relative;
+  }
+  
+  /* the overlapping outside triangle 
+   * actually, it's just a rotated square
+   */
+  .camera-button:before {
+    /* make the triangle display */
+    display: block;
+    content: "";
+    /* make the triangle able to be moved around relative to the button */
+    position: absolute;
+    /* approximately makes the diagonal the right size */
+    width: 4.25rem;
+    height: 4.25rem;
+    /* rotate the square (to look like a triangle) */
+    transform: rotate(45deg);
+    /* use the current color value for the background to match the button */
+    background: currentcolor;
+  }
+  
+  /* the inner direction triangle */
+  .camera-button:after {
+    /* make the triangle display */
+    display: block;
+    content: "";
+    /* make the triangle able to be moved around relative to the button */
+    position: absolute;
+    /* same border-based triangle trick as before */
+    border: 2rem solid transparent;
+    /* using color value for border-color to make it easier to change */
+    color: rgba(0, 0, 0, 0.6);
+  }
+  
+  /* when the button is hovered */
+  .camera-button:hover {
+    /* make the button a different color */
+    color: rgb(172, 170, 170);
+  }
+  
+  /* when the button is pressed */
+  .camera-button:active:after {
+    /* make the inner triangle a different color! */
+    color: rgb(255, 0, 0);
+  }
+  
+  /* individual button styles */
+  .up2 {
+    /* puts the button in the named grid cell */
+    grid-area: up2;
+    /* only curves the outer corners */
+    border-radius: 0.5rem 0.5rem 0 0;
+  }
+  .up2:before {
+    /* center the overlapping triangle horizontally */
+    left: calc(50% - 2.125rem);
+    /* position it so it overlaps just right */
+    bottom: -2.125rem;
+  }
+  .up2:after {
+    /* do the border-based triangle trick */
+    border-bottom-color: currentcolor;
+    /* center inner triangle horizontally */
+    left: calc(50% - 2rem);
+    /* position it just right */
+    top: -1rem;
+  }
+  
+  .left2 {
+    /* puts the button in the named grid cell */
+    grid-area: left2;
+    /* only curves the outer corners */
+    border-radius: 0.5rem 0 0 0.5rem; 
+  }
+  .left2:before {
+    /* position it so it overlaps just right */
+    right: -2.125rem;
+    /* center the overlapping triangle vertically */
+    top: calc(50% - 2.125rem);
+  }
+  .left2:after {
+    /* do the border-based triangle trick */
+    border-right-color: currentcolor;
+    /* center inner triangle vertically */
+    top: calc(50% - 2rem);
+    /* position it just right */
+    left: -1rem;
+  }
+  
+  .right2 {
+    /* puts the button in the named grid cell */
+    grid-area: right2;
+    /* only curves the outer corners */
+    border-radius: 0 0.5rem 0.5rem 0;
+  }
+  .right2:before {
+    /* position it so it overlaps just right */
+    left: -2.125rem;
+    /* center the overlapping triangle vertically */
+    top: calc(50% - 2.125rem);
+  }
+  .right2:after {
+    /* do the border-based triangle trick */
+    border-left-color: currentcolor;
+    /* center inner triangle vertically */
+    top: calc(50% - 2rem);
+    /* position it just right */
+    right: -1rem;
+  }
+  
+  .down2 {
+    /* puts the button in the named grid cell */
+    grid-area: down2;
+    /* only curves the outer corners */
+    border-radius: 0 0 0.5rem 0.5rem;
+  }
+  .down2:before {
+    /* center the overlapping triangle horizontally */
+    left: calc(50% - 2.125rem);
+    /* position it so it overlaps just right */
+    top: -2.125rem;
+  }
+  .down2:after {
+    /* do the border-based triangle trick */
+    border-top-color: currentcolor;
+    /* center inner triangle horizontally */
+    left: calc(50% - 2rem);
+    /* position it just right */
+    bottom: -1rem;
+  }
+
+  div.horizontalgap {
+    float: left;
+    overflow: hidden;
+    height: 0px;
+    width: 1px;
+  }
   
   /* other styles */
   html,
@@ -177,5 +342,5 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: white;
+    background: rgb(0, 51, 160);
   }
