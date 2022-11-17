@@ -32,6 +32,8 @@
     <button id = "direction-button down" onmousedown="NavBackward()" onmouseup="NavStop()" class="direction-button down">
       <span class="visually-hidden">down</span>
     </button>
+    <button id = "direction-button up2" onclick="Test()" class="direction-button up">
+      <span class="visually-hidden">up</span>
   </div>
 
 </body>
@@ -39,7 +41,7 @@
 <!--Javascript functions-->
 <script>
 
-let socket = new WebSocket("ws://10.104.0.53:8000");
+let socket = new WebSocket("ws://10.47.194.193:8000");
   function InitWebSocket() {
     console.log("init web socket")
 
@@ -67,6 +69,10 @@ let socket = new WebSocket("ws://10.104.0.53:8000");
   }
 
   var sendInterval = null;
+
+  function Test() {
+    console.log("test button");
+  }
 
   function NavForward() {
     console.log("Up button clicked");
