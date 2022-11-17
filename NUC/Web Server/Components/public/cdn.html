@@ -20,16 +20,16 @@
 <body>
   <div id="ZoomEmbeddedApp"></div>
   <div class="directional-buttons">
-    <button onClick="NavForward()" class="direction-button up">
+    <button id = "direction-button up" onmousedown="NavForward()" onmouseup="NavStop()" class="direction-button up">
       <span class="visually-hidden">up</span>
     </button>
-    <button onClick="NavLeft()" class="direction-button left">
+    <button id = "direction-button left" onmousedown="NavLeft()" onmouseup="NavStop()" class="direction-button left">
       <span class="visually-hidden">left</span>
     </button>
-    <button onClick="NavRight()" class="direction-button right">
+    <button id = "direction-button right" onmousedown="NavRight()" onmouseup="NavStop()" class="direction-button right">
       <span class="visually-hidden">right</span>
     </button>
-    <button onClick="NavBackward()" class="direction-button down">
+    <button id = "direction-button down" onmousedown="NavBackward()" onmouseup="NavStop()" class="direction-button down">
       <span class="visually-hidden">down</span>
     </button>
   </div>
@@ -39,7 +39,7 @@
 <!--Javascript functions-->
 <script>
 
-let socket = new WebSocket("ws://10.47.194.193:8000");
+let socket = new WebSocket("ws://10.104.0.53:8000");
   function InitWebSocket() {
     console.log("init web socket")
 
@@ -65,25 +65,37 @@ let socket = new WebSocket("ws://10.47.194.193:8000");
       console.log("ERROR: socket is closed");
     }
   }
+
+  var sendInterval = null;
+
   function NavForward() {
     console.log("Up button clicked");
-    wsSend("W");
+    sendInterval = setInterval(SendForward, 100);
+    function SendForward() {wsSend("W");}
   }
 
   function NavLeft() {
     console.log("Left button clicked");
-    wsSend("A");
+    sendInterval = setInterval(SendLeft, 100);
+    function SendLeft() {wsSend("A");}
   }
 
   function NavRight() {
     console.log("Right button clicked");
-    wsSend("D");
+    sendInterval = setInterval(SendRight, 100);
+    function SendRight() {wsSend("D");}
   }
 
   function NavBackward() {
-    console.log("Down button clicked");
-    wsSend("S");
+    sendInterval = setInterval(SendBackward, 100);
+    function SendBackward() {wsSend("D");}
   } 
+
+  function NavStop() {
+    console.log("Sending stop command");
+    clearInterval(sendInterval);
+    wsSend("STOP");
+  }
 </script>
 
 
