@@ -176,18 +176,28 @@ class MotorControlSubscriber(Node):
         
             #self.get_logger().info('I heard: "%s"' % msg.data)
             if msg.data == "W":
-                go_forward(self.ser, 50)
+                go_forward(self.ser, 25)
                 #self.get_logger().info('Going forward')
             elif msg.data == "A":
-                turn_left(self.ser, 25)
+                turn_left(self.ser, 10)
+            elif msg.data =="AX":
+                turn_left(self.ser, 10)
+                time.sleep(0.1)
+                stop_now(self.ser)
             elif msg.data == "D":
-                turn_right(self.ser, 25)
+                turn_right(self.ser, 10)
+            elif msg.data == "DX":
+                turn_right(self.ser, 10)
+                time.sleep(0.1)
+                stop_now(self.ser)
             elif msg.data == "S":
-                go_backward(self.ser, 50)
+                go_backward(self.ser, 25)
+            elif msg.data == "X":
+                stop_now(self.ser)
             else:
                 stop_now(self.ser)
-            time.sleep(0.1)
-            stop_now(self.ser)
+            #time.sleep(0.1)
+            #stop_now(self.ser)
         else:
             self.get_logger().info('Object Detected...')
             stop_now(self.ser)

@@ -23,6 +23,7 @@ setup(
             'local_server_talker = server_to_motors.local_server_publisher:main',
             'motor_control_listener = server_to_motors.motor_control_subscriber:main',
             'object_detection_talker = server_to_motors.object_detection_publisher:main',
+            'camera_control_listener = server_to_motors.camera_control_subscriber:main', 
         ],
     },
 )
