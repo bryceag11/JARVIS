@@ -37,16 +37,16 @@
   <div class="horizontalgap" style="width:100px"></div>
 
   <div class="camera-buttons">
-    <button id = "camera-button up" onclick = "Test()" class="camera-button up2">
+    <button id = "camera-button up" onclick = "CamUp()" class="camera-button up2">
       <span class="visually-hidden">up</span>
     </button>
-    <button id = "camera-button left" onclick = "Test()" class="camera-button left2">
+    <button id = "camera-button left" onclick = "CamLeft()" class="camera-button left2">
       <span class="visually-hidden">left</span>
     </button>
-    <button id = "camera-button right" onclick = "Test()" class="camera-button right2">
+    <button id = "camera-button right" onclick = "CamRight()" class="camera-button right2">
       <span class="visually-hidden">right</span>
     </button>
-    <button id = "camera-button down" onclick = "Test()" class="camera-button down2">
+    <button id = "camera-button down" onclick = "CamDown()" class="camera-button down2">
       <span class="visually-hidden">down</span>
     </button>
   </div>
@@ -96,6 +96,7 @@ let socket = new WebSocket("ws://10.47.194.193:8000");
   Hold functions used for long click and hold turning (onmousedown/onmouseup) 
   */
 
+  //Navigation Functions
   function NavForward() {
     console.log("Up button clicked");
     sendInterval = setInterval(SendForward, 100);
@@ -133,6 +134,27 @@ let socket = new WebSocket("ws://10.47.194.193:8000");
     console.log("Sending stop command");
     clearInterval(sendInterval);
     wsSend("X");
+  }
+
+  //Camera functions
+  function CamUp() {
+    console.log("Camera up");
+    wsSend("1");
+  }
+
+  function CamLeft() {
+    console.log("Camera left");
+    wsSend("3");
+  }
+
+  function CamRight() {
+    console.log("Camera right");
+    wsSend("4");
+  }
+
+  function CamDown() {
+    console.log("Camera down");
+    wsSend("2");
   }
 </script>
 

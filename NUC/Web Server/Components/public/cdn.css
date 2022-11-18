@@ -80,7 +80,7 @@
   /* when the button is pressed */
   .direction-button:active:after {
     /* make the inner triangle a different color! */
-    color: rgb(255, 0, 0);
+    color: rgb(62, 173, 6);
   }
   
   /* individual button styles */
@@ -239,7 +239,7 @@
   /* when the button is pressed */
   .camera-button:active:after {
     /* make the inner triangle a different color! */
-    color: rgb(255, 0, 0);
+    color: rgb(62, 173, 6);
   }
   
   /* individual button styles */
