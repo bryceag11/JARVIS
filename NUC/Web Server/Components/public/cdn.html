@@ -23,13 +23,30 @@
     <button id = "direction-button up" onmousedown="NavForward()" onmouseup="NavStop()" class="direction-button up">
       <span class="visually-hidden">up</span>
     </button>
-    <button id = "direction-button left" onmousedown="NavLeft()" onmouseup="NavStop()" class="direction-button left">
+    <button id = "direction-button left" onclick = "NavLeftClick()" onmousedown="NavLeftHold()" onmouseup="NavStop()" class="direction-button left">
       <span class="visually-hidden">left</span>
     </button>
-    <button id = "direction-button right" onmousedown="NavRight()" onmouseup="NavStop()" class="direction-button right">
+    <button id = "direction-button right" onclick = "NavRightClick()" onmousedown="NavRightHold()" onmouseup="NavStop()" class="direction-button right">
       <span class="visually-hidden">right</span>
     </button>
     <button id = "direction-button down" onmousedown="NavBackward()" onmouseup="NavStop()" class="direction-button down">
+      <span class="visually-hidden">down</span>
+    </button>
+  </div>
+
+  <div class="horizontalgap" style="width:100px"></div>
+
+  <div class="camera-buttons">
+    <button id = "camera-button up" onclick = "CamUp()" class="camera-button up2">
+      <span class="visually-hidden">up</span>
+    </button>
+    <button id = "camera-button left" onclick = "CamLeft()" class="camera-button left2">
+      <span class="visually-hidden">left</span>
+    </button>
+    <button id = "camera-button right" onclick = "CamRight()" class="camera-button right2">
+      <span class="visually-hidden">right</span>
+    </button>
+    <button id = "camera-button down" onclick = "CamDown()" class="camera-button down2">
       <span class="visually-hidden">down</span>
     </button>
   </div>
@@ -72,22 +89,40 @@ let socket = new WebSocket("ws://10.47.194.193:8000");
     console.log("test button");
   }
 
+  /*
+  ******* WebSocket Functions *******
+  These functions are called on button clicks
+  Click functions used for small adjustments (onclick)
+  Hold functions used for long click and hold turning (onmousedown/onmouseup) 
+  */
+
+  //Navigation Functions
   function NavForward() {
     console.log("Up button clicked");
     sendInterval = setInterval(SendForward, 100);
     function SendForward() {wsSend("W");}
   }
 
-  function NavLeft() {
-    console.log("Left button clicked");
+  function NavLeftHold() {
+    console.log("Left button held");
     sendInterval = setInterval(SendLeft, 100);
     function SendLeft() {wsSend("A");}
   }
 
-  function NavRight() {
-    console.log("Right button clicked");
+  function NavLeftClick() {
+    console.log("Left button clicked");
+    wsSend("AX");
+  }
+
+  function NavRightHold() {
+    console.log("Right button held");
     sendInterval = setInterval(SendRight, 100);
     function SendRight() {wsSend("D");}
+  }
+
+  function NavRightClick() {
+    console.log("Right button clicked");
+    wsSend("DX");
   }
 
   function NavBackward() {
@@ -100,8 +135,27 @@ let socket = new WebSocket("ws://10.47.194.193:8000");
     clearInterval(sendInterval);
     wsSend("X");
   }
+
+  //Camera functions
+  function CamUp() {
+    console.log("Camera up");
+    wsSend("1");
+  }
+
+  function CamLeft() {
+    console.log("Camera left");
+    wsSend("3");
+  }
+
+  function CamRight() {
+    console.log("Camera right");
+    wsSend("4");
+  }
+
+  function CamDown() {
+    console.log("Camera down");
+    wsSend("2");
+  }
 </script>
-
-
 
 </html>
