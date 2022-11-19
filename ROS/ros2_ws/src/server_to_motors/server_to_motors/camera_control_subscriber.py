@@ -26,24 +26,24 @@ from std_msgs.msg import String
 ###############################
 
 def go_up(ser):
-    ser.write("1z")
+    ser.write(bytearray([49]))
 
 def go_down(ser):
-    ser.write("2z")
+    ser.write(bytearray([50]))
 
 def go_left(ser):
-    ser.write("3z")
+    ser.write(bytearray([51]))
 
 def go_right(ser):
-    ser.write("4z")
+    ser.write(bytearray([52]))
 
 def go_center(ser):
-    ser.write("5z")
+    ser.write(bytearray([53]))
 
 def go_drive_mode(ser):
-    ser.write("6z")
+    ser.write(bytearray([54]))
 
-def connect_to_camera(port='/dev/ttyUSB0'): #needs to be different from the other ones...
+def connect_to_camera(port='/dev/ttyACM0'): #needs to be different from the other ones...
     #open serial port 9600 baud, 8, N, 1 (no timeout)
     ser = serial.Serial()
     ser.baudrate = 9600
@@ -63,20 +63,21 @@ def initialize_camera():
 
     ser = connect_to_camera()
 
-    print("Initializing motors to default settings...")
+    print("Initializing camera to default settings...")
     try:
-        ser.flush()
-        set_defaults(ser)
+        #ser.flush()
+        go_center(ser)
         print("Finished setup...")
         return ser
-    except:
+    except OSError as e:
+        print(e)
         print("Setup failed... Exiting now...\n")
         exit()
 
 
 
 
-class MotorControlSubscriber(Node):
+class CameraControlSubscriber(Node):
 
     def __init__(self):
         super().__init__('motor_control_subscriber')
@@ -100,7 +101,6 @@ class MotorControlSubscriber(Node):
             go_drive_mode(self.ser)
         else:
             go_center(self.ser)
-
 
 
 def main(args=None):
