@@ -26,22 +26,40 @@ from std_msgs.msg import String
 ###############################
 
 def go_up(ser):
-    ser.write(bytearray([49]))
+    try:
+        ser.write(bytearray([49]))
+    except:
+        pass
 
 def go_down(ser):
-    ser.write(bytearray([50]))
+    try:
+        ser.write(bytearray([50]))
+    except:
+        pass
 
 def go_left(ser):
-    ser.write(bytearray([51]))
+    try:
+        ser.write(bytearray([51]))
+    except:
+        pass
 
 def go_right(ser):
-    ser.write(bytearray([52]))
+    try:
+        ser.write(bytearray([52]))
+    except:
+        pass
 
 def go_center(ser):
-    ser.write(bytearray([53]))
+    try:
+        ser.write(bytearray([53]))
+    except:
+        pass
 
 def go_drive_mode(ser):
-    ser.write(bytearray([54]))
+    try:
+        ser.write(bytearray([54]))
+    except:
+        pass
 
 def connect_to_camera(port='/dev/ttyACM0'): #needs to be different from the other ones...
     #open serial port 9600 baud, 8, N, 1 (no timeout)
