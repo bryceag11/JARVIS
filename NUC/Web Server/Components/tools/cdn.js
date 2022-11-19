@@ -61,6 +61,15 @@ function websdkready() {
     webEndpoint: meetingConfig.webEndpoint,
     language: meetingConfig.lang,
     customize: {
+      video: {
+        isResizable: true,
+      viewSizes: {
+        default: {
+          width: 800,
+          height: 400
+      },
+    }
+  },
       meetingInfo: ['topic', 'host', 'mn', 'pwd', 'telPwd', 'invite', 'participant', 'dc', 'enctype'],
       toolbar: {
         buttons: [
