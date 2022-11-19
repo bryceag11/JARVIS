@@ -48,6 +48,8 @@
     </button>
     <button style = "position: relative; right: 100px; top: 150px;" id = "camera-button down" onclick = "CamDown()" class="camera-button down2">
       <p style="color:#ffffff; font-family: verdana; position: relative; right: 0px; top:70px;">Camera Controls</p>
+      <button onclick = "CamCenter()" style = "position: relative; right: 100px; top: 150px;" type="button">Center</button>
+      <button onclick = "CamDrive()" style = "position: relative; right: 100px; top: 150px;" type="button">Drive Mode</button>
     </button>
   </div>
 
@@ -155,6 +157,16 @@ let socket = new WebSocket("ws://10.47.194.193:8000");
   function CamDown() {
     console.log("Camera down");
     wsSend("2");
+  }
+
+  function CamCenter() {
+    console.log("Camera center");
+    wsSend("5");
+  }
+
+  function CamDrive() {
+    console.log("Camera drive mode");
+    wsSend("6");
   }
 </script>
 
