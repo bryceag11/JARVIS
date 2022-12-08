@@ -23,3 +23,10 @@ ros2 run server_to_motors camera_control_listener &
 
 ### Object Detection (not fully implemented)
 ros2 run server_to_motors object_detection_talker &
+
+## Setup UI/Server
+
+cd ~/ROBB/NUC/Web Server/Components
+
+### Launch UI
+npm start
