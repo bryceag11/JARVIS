@@ -10,7 +10,7 @@ colcon build --packages-select server_to_motors
 
 . install/setup.bash (necessary for every terminal before launching ROS nodes)
 
-## Launching ROS Nodes
+## Launching ROS Nodes (scripts located in /ROS/ros2_ws/src/server_to_motors/server_to_motors)
 
 cd ~/ROBB/ROS/ros2_ws/
 
@@ -35,3 +35,5 @@ npm start
 
 ## ROS Documentation
 https://docs.ros.org/en/foxy/Releases/Release-Humble-Hawksbill.html
+
+## Please refer to our Final Report for further information on the robot
