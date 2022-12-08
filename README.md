@@ -1,4 +1,6 @@
-# ROBB uses a custom ROS2 package called server_to_motors
+# ROBB
+
+## ROBB uses a custom ROS2 package called server_to_motors
 
 ## After changes to the code, you must rebuild the package using the following commands
 
