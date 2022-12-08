@@ -5,7 +5,9 @@
 ## After changes to the code, you must rebuild the package using the following commands
 
 cd ~/ROBB/ROS/ros2_ws/
+
 colcon build --packages-select server_to_motors
+
 . install/setup.bash (necessary for every terminal before launching ROS nodes)
 
 ## Launching ROS Nodes
