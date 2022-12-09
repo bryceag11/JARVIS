@@ -36,4 +36,7 @@ npm start
 ## ROS Documentation
 https://docs.ros.org/en/foxy/Releases/Release-Humble-Hawksbill.html
 
+## VL53L1X I2C Examples (ToF sensors)
+https://www.l33t.uk/ebay/vl53l1x/
+
 ## Please refer to our Final Report for further information on the robot
