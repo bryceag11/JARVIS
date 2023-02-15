@@ -1,6 +1,7 @@
-# ROBB
+# J.A.R.V.I.S.
+# Or, Just a rather very intelligent sysem
 
-## ROBB uses a custom ROS2 package called server_to_motors
+## J.A.R.V.I.S. uses a custom ROS2 package called server_to_motors
 
 ## After changes to the code, you must rebuild the package using the following commands
 
