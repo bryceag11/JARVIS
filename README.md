@@ -5,7 +5,7 @@
 
 ## After changes to the code, you must rebuild the package using the following commands
 
-cd ~/ROBB/ROS/ros2_ws/
+cd ~/JARVIS/ROS/ros2_ws/
 
 colcon build --packages-select server_to_motors
 
@@ -13,7 +13,7 @@ colcon build --packages-select server_to_motors
 
 ## Launching ROS Nodes (scripts located in /ROS/ros2_ws/src/server_to_motors/server_to_motors)
 
-cd ~/ROBB/ROS/ros2_ws/
+cd ~/JARVIS/ROS/ros2_ws/
 
 ### Server Control
 ros2 run server_to_motors local_server_talker &
@@ -29,7 +29,7 @@ ros2 run server_to_motors object_detection_talker &
 
 ## Setup UI/Server
 
-cd ~/ROBB/NUC/Web Server/Components
+cd ~/JARVIS/NUC/Web Server/Components
 
 ### Launch UI
 npm start
