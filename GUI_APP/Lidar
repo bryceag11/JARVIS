@@ -1,45 +1,56 @@
-import threading
-import PyLidar3
-import matplotlib.pyplot as plt
-import math    
+import os
+import ydlidar
 import time
+import sys
+from matplotlib.patches import Arc
+import matplotlib.pyplot as plt
+import matplotlib.animation as animation
+import numpy as np
 
-plt.switch_backend('agg')
+RMAX = 32.0
 
-def draw():
-    global is_plot
-    while is_plot:
-        plt.figure(1)
-        plt.cla()
-        plt.ylim(-9000,9000)
-        plt.xlim(-9000,9000)
-        plt.scatter(x,y,c='r',s=8)
-        plt.pause(0.001)
-    plt.close("all")
+
+fig = plt.figure()
+fig.canvas.set_window_title('YDLidar LIDAR Monitor')
+lidar_polar = plt.subplot(polar=True)
+lidar_polar.autoscale_view(True,True,True)
+lidar_polar.set_rmax(RMAX)
+lidar_polar.grid(True)
+ports = ydlidar.lidarPortList();
+port = "/dev/ydlidar";
+for key, value in ports.items():
+    port = value;
     
-                
-is_plot = True
-x=[]
-y=[]
-for _ in range(360):
-    x.append(0)
-    y.append(0)
+laser = ydlidar.CYdLidar();
+laser.setlidaropt(ydlidar.LidarPropSerialPort, port);
+laser.setlidaropt(ydlidar.LidarPropSerialBaudrate, 230400)
+laser.setlidaropt(ydlidar.LidarPropLidarType, ydlidar.TYPE_TRIANGLE);
+laser.setlidaropt(ydlidar.LidarPropDeviceType, ydlidar.YDLIDAR_TYPE_SERIAL);
+laser.setlidaropt(ydlidar.LidarPropScanFrequency, 10.0);
+laser.setlidaropt(ydlidar.LidarPropSampleRate, 9);
+laser.setlidaropt(ydlidar.LidarPropSingleChannel, False);
+scan = ydlidar.LaserScan()
 
-port =  input("Enter port name which lidar is connected:") #windows
-Obj = PyLidar3.YdLidarX4(port)  #PyLidar3.your_version_of_lidar(port,chunk_size)
-threading.Thread(target=draw).start()
-if(Obj.Connect()):
-    print(Obj.GetDeviceInfo())
-    gen = Obj.StartScanning()
-    t = time.time() # start time 
-    while (time.time() - t) < 30: #scan for 30 seconds
-        data = next(gen)
-        for angle in range(0,360):
-            if(data[angle]>1000):
-                x[angle] = data[angle] * math.cos(math.radians(angle))
-                y[angle] = data[angle] * math.sin(math.radians(angle))
-    is_plot = False
-    Obj.StopScanning()
-    Obj.Disconnect()
-else:
-    print("Error connecting to device")
+def animate(num):
+    
+    r = laser.doProcessSimple(scan);
+    if r:
+        angle = []
+        ran = []
+        intensity = []
+        for point in scan.points:
+            angle.append(point.angle);
+            ran.append(point.range);
+            intensity.append(point.intensity);
+        lidar_polar.clear()
+        lidar_polar.scatter(angle, ran, c=intensity, cmap='hsv', alpha=0.95)
+
+ret = laser.initialize();
+if ret:
+    ret = laser.turnOn();
+    if ret:
+        ani = animation.FuncAnimation(fig, animate, interval=50)
+        plt.show()
+    laser.turnOff();
+laser.disconnecting();
+plt.close();
