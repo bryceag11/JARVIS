@@ -7,6 +7,7 @@ through the use of byte commands
 """
 
 import serial
+import threading
 
 class MotorCommands:
     def __init__(self):
