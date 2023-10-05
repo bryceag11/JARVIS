@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from motor_commands import MotorCommands
 from camera_control import CameraControl
+import webview
 
 class MotorControlGUI:
     def __init__(self, port="COM3"):
@@ -124,7 +125,3 @@ class MotorControlGUI:
 
     def start(self):
         self.root.mainloop()
-
-# Create an instance of the MotorControlGUI and start the GUI
-gui = MotorControlGUI()
-gui.start()
