@@ -3,22 +3,24 @@
 ## J.A.R.V.I.S. is a social navigating robot that aspires to provide an immersive, autonomous experience for its remote users
 
 # Features
-* Autonomous navigation using a YDLidar X4
+* Autonomous navigation using a [YDLidar X4](https://github.com/YDLIDAR/YDLidar-SDK)
 * Web integration with Zoom for remote user control and interaction
 * Manual and autonomous motor control
 * Camera control for user interaction
 
 ## Getting Started
-1. Clone the project repository
+### Clone the project repository
 git clone https://github.com/bryceag11/JARVIS.git
+
 cd JARVIS
-2. Install the dependencies
+
+### Install the dependencies
 pip install -r requirements.txt
 
 ## Usage
-1. Launch the main program
+### Launch the main program
 python main.py
-2. Run the web interface for remote user connection
+### Run the web interface for remote user connection
 
 
 ## Setup UI/Server
