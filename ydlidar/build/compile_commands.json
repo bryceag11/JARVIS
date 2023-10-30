@@ -1,0 +1,110 @@
+[
+{
+  "directory": "/mnt/c/JARVIS/ydlidar/build",
+  "command": "/usr/bin/c++  -I/mnt/c/JARVIS/ydlidar/. -I/mnt/c/JARVIS/ydlidar/core -I/mnt/c/JARVIS/ydlidar/src -I/mnt/c/JARVIS/ydlidar -I/mnt/c/JARVIS/ydlidar/build -I/mnt/c/JARVIS/ydlidar/python  -std=c++11 -fPIC -o CMakeFiles/ydlidar_sdk.dir/core/base/timer.cpp.o -c /mnt/c/JARVIS/ydlidar/core/base/timer.cpp",
+  "file": "/mnt/c/JARVIS/ydlidar/core/base/timer.cpp",
+  "output": "CMakeFiles/ydlidar_sdk.dir/core/base/timer.cpp.o"
+},
+{
+  "directory": "/mnt/c/JARVIS/ydlidar/build",
+  "command": "/usr/bin/c++  -I/mnt/c/JARVIS/ydlidar/. -I/mnt/c/JARVIS/ydlidar/core -I/mnt/c/JARVIS/ydlidar/src -I/mnt/c/JARVIS/ydlidar -I/mnt/c/JARVIS/ydlidar/build -I/mnt/c/JARVIS/ydlidar/python  -std=c++11 -fPIC -o CMakeFiles/ydlidar_sdk.dir/core/common/ydlidar_def.cpp.o -c /mnt/c/JARVIS/ydlidar/core/common/ydlidar_def.cpp",
+  "file": "/mnt/c/JARVIS/ydlidar/core/common/ydlidar_def.cpp",
+  "output": "CMakeFiles/ydlidar_sdk.dir/core/common/ydlidar_def.cpp.o"
+},
+{
+  "directory": "/mnt/c/JARVIS/ydlidar/build",
+  "command": "/usr/bin/c++  -I/mnt/c/JARVIS/ydlidar/. -I/mnt/c/JARVIS/ydlidar/core -I/mnt/c/JARVIS/ydlidar/src -I/mnt/c/JARVIS/ydlidar -I/mnt/c/JARVIS/ydlidar/build -I/mnt/c/JARVIS/ydlidar/python  -std=c++11 -fPIC -o CMakeFiles/ydlidar_sdk.dir/core/network/ActiveSocket.cpp.o -c /mnt/c/JARVIS/ydlidar/core/network/ActiveSocket.cpp",
+  "file": "/mnt/c/JARVIS/ydlidar/core/network/ActiveSocket.cpp",
+  "output": "CMakeFiles/ydlidar_sdk.dir/core/network/ActiveSocket.cpp.o"
+},
+{
+  "directory": "/mnt/c/JARVIS/ydlidar/build",
+  "command": "/usr/bin/c++  -I/mnt/c/JARVIS/ydlidar/. -I/mnt/c/JARVIS/ydlidar/core -I/mnt/c/JARVIS/ydlidar/src -I/mnt/c/JARVIS/ydlidar -I/mnt/c/JARVIS/ydlidar/build -I/mnt/c/JARVIS/ydlidar/python  -std=c++11 -fPIC -o CMakeFiles/ydlidar_sdk.dir/core/network/PassiveSocket.cpp.o -c /mnt/c/JARVIS/ydlidar/core/network/PassiveSocket.cpp",
+  "file": "/mnt/c/JARVIS/ydlidar/core/network/PassiveSocket.cpp",
+  "output": "CMakeFiles/ydlidar_sdk.dir/core/network/PassiveSocket.cpp.o"
+},
+{
+  "directory": "/mnt/c/JARVIS/ydlidar/build",
+  "command": "/usr/bin/c++  -I/mnt/c/JARVIS/ydlidar/. -I/mnt/c/JARVIS/ydlidar/core -I/mnt/c/JARVIS/ydlidar/src -I/mnt/c/JARVIS/ydlidar -I/mnt/c/JARVIS/ydlidar/build -I/mnt/c/JARVIS/ydlidar/python  -std=c++11 -fPIC -o CMakeFiles/ydlidar_sdk.dir/core/network/SimpleSocket.cpp.o -c /mnt/c/JARVIS/ydlidar/core/network/SimpleSocket.cpp",
+  "file": "/mnt/c/JARVIS/ydlidar/core/network/SimpleSocket.cpp",
+  "output": "CMakeFiles/ydlidar_sdk.dir/core/network/SimpleSocket.cpp.o"
+},
+{
+  "directory": "/mnt/c/JARVIS/ydlidar/build",
+  "command": "/usr/bin/c++  -I/mnt/c/JARVIS/ydlidar/. -I/mnt/c/JARVIS/ydlidar/core -I/mnt/c/JARVIS/ydlidar/src -I/mnt/c/JARVIS/ydlidar -I/mnt/c/JARVIS/ydlidar/build -I/mnt/c/JARVIS/ydlidar/python  -std=c++11 -fPIC -o CMakeFiles/ydlidar_sdk.dir/core/serial/serial.cpp.o -c /mnt/c/JARVIS/ydlidar/core/serial/serial.cpp",
+  "file": "/mnt/c/JARVIS/ydlidar/core/serial/serial.cpp",
+  "output": "CMakeFiles/ydlidar_sdk.dir/core/serial/serial.cpp.o"
+},
+{
+  "directory": "/mnt/c/JARVIS/ydlidar/build",
+  "command": "/usr/bin/cc  -I/mnt/c/JARVIS/ydlidar/. -I/mnt/c/JARVIS/ydlidar/core -I/mnt/c/JARVIS/ydlidar/src -I/mnt/c/JARVIS/ydlidar -I/mnt/c/JARVIS/ydlidar/build -I/mnt/c/JARVIS/ydlidar/python -fPIC -o CMakeFiles/ydlidar_sdk.dir/core/serial/impl/unix/lock.c.o -c /mnt/c/JARVIS/ydlidar/core/serial/impl/unix/lock.c",
+  "file": "/mnt/c/JARVIS/ydlidar/core/serial/impl/unix/lock.c",
+  "output": "CMakeFiles/ydlidar_sdk.dir/core/serial/impl/unix/lock.c.o"
+},
+{
+  "directory": "/mnt/c/JARVIS/ydlidar/build",
+  "command": "/usr/bin/c++  -I/mnt/c/JARVIS/ydlidar/. -I/mnt/c/JARVIS/ydlidar/core -I/mnt/c/JARVIS/ydlidar/src -I/mnt/c/JARVIS/ydlidar -I/mnt/c/JARVIS/ydlidar/build -I/mnt/c/JARVIS/ydlidar/python  -std=c++11 -fPIC -o CMakeFiles/ydlidar_sdk.dir/core/serial/impl/unix/list_ports_linux.cpp.o -c /mnt/c/JARVIS/ydlidar/core/serial/impl/unix/list_ports_linux.cpp",
+  "file": "/mnt/c/JARVIS/ydlidar/core/serial/impl/unix/list_ports_linux.cpp",
+  "output": "CMakeFiles/ydlidar_sdk.dir/core/serial/impl/unix/list_ports_linux.cpp.o"
+},
+{
+  "directory": "/mnt/c/JARVIS/ydlidar/build",
+  "command": "/usr/bin/c++  -I/mnt/c/JARVIS/ydlidar/. -I/mnt/c/JARVIS/ydlidar/core -I/mnt/c/JARVIS/ydlidar/src -I/mnt/c/JARVIS/ydlidar -I/mnt/c/JARVIS/ydlidar/build -I/mnt/c/JARVIS/ydlidar/python  -std=c++11 -fPIC -o CMakeFiles/ydlidar_sdk.dir/core/serial/impl/unix/unix_serial.cpp.o -c /mnt/c/JARVIS/ydlidar/core/serial/impl/unix/unix_serial.cpp",
+  "file": "/mnt/c/JARVIS/ydlidar/core/serial/impl/unix/unix_serial.cpp",
+  "output": "CMakeFiles/ydlidar_sdk.dir/core/serial/impl/unix/unix_serial.cpp.o"
+},
+{
+  "directory": "/mnt/c/JARVIS/ydlidar/build",
+  "command": "/usr/bin/c++  -I/mnt/c/JARVIS/ydlidar/. -I/mnt/c/JARVIS/ydlidar/core -I/mnt/c/JARVIS/ydlidar/src -I/mnt/c/JARVIS/ydlidar -I/mnt/c/JARVIS/ydlidar/build -I/mnt/c/JARVIS/ydlidar/python  -std=c++11 -fPIC -o CMakeFiles/ydlidar_sdk.dir/src/CYdLidar.cpp.o -c /mnt/c/JARVIS/ydlidar/src/CYdLidar.cpp",
+  "file": "/mnt/c/JARVIS/ydlidar/src/CYdLidar.cpp",
+  "output": "CMakeFiles/ydlidar_sdk.dir/src/CYdLidar.cpp.o"
+},
+{
+  "directory": "/mnt/c/JARVIS/ydlidar/build",
+  "command": "/usr/bin/c++  -I/mnt/c/JARVIS/ydlidar/. -I/mnt/c/JARVIS/ydlidar/core -I/mnt/c/JARVIS/ydlidar/src -I/mnt/c/JARVIS/ydlidar -I/mnt/c/JARVIS/ydlidar/build -I/mnt/c/JARVIS/ydlidar/python  -std=c++11 -fPIC -o CMakeFiles/ydlidar_sdk.dir/src/ETLidarDriver.cpp.o -c /mnt/c/JARVIS/ydlidar/src/ETLidarDriver.cpp",
+  "file": "/mnt/c/JARVIS/ydlidar/src/ETLidarDriver.cpp",
+  "output": "CMakeFiles/ydlidar_sdk.dir/src/ETLidarDriver.cpp.o"
+},
+{
+  "directory": "/mnt/c/JARVIS/ydlidar/build",
+  "command": "/usr/bin/c++  -I/mnt/c/JARVIS/ydlidar/. -I/mnt/c/JARVIS/ydlidar/core -I/mnt/c/JARVIS/ydlidar/src -I/mnt/c/JARVIS/ydlidar -I/mnt/c/JARVIS/ydlidar/build -I/mnt/c/JARVIS/ydlidar/python  -std=c++11 -fPIC -o CMakeFiles/ydlidar_sdk.dir/src/ydlidar_driver.cpp.o -c /mnt/c/JARVIS/ydlidar/src/ydlidar_driver.cpp",
+  "file": "/mnt/c/JARVIS/ydlidar/src/ydlidar_driver.cpp",
+  "output": "CMakeFiles/ydlidar_sdk.dir/src/ydlidar_driver.cpp.o"
+},
+{
+  "directory": "/mnt/c/JARVIS/ydlidar/build",
+  "command": "/usr/bin/c++  -I/mnt/c/JARVIS/ydlidar/. -I/mnt/c/JARVIS/ydlidar/core -I/mnt/c/JARVIS/ydlidar/src -I/mnt/c/JARVIS/ydlidar -I/mnt/c/JARVIS/ydlidar/build -I/mnt/c/JARVIS/ydlidar/python  -std=c++11 -fPIC -o CMakeFiles/ydlidar_sdk.dir/src/ydlidar_sdk.cpp.o -c /mnt/c/JARVIS/ydlidar/src/ydlidar_sdk.cpp",
+  "file": "/mnt/c/JARVIS/ydlidar/src/ydlidar_sdk.cpp",
+  "output": "CMakeFiles/ydlidar_sdk.dir/src/ydlidar_sdk.cpp.o"
+},
+{
+  "directory": "/mnt/c/JARVIS/ydlidar/build/samples",
+  "command": "/usr/bin/c++  -I/mnt/c/JARVIS/ydlidar/. -I/mnt/c/JARVIS/ydlidar/core -I/mnt/c/JARVIS/ydlidar/src -I/mnt/c/JARVIS/ydlidar -I/mnt/c/JARVIS/ydlidar/.. -I/mnt/c/JARVIS/ydlidar/build/samples  -std=c++11 -fPIC -std=c++11 -o CMakeFiles/etlidar_test.dir/etlidar_test.cpp.o -c /mnt/c/JARVIS/ydlidar/samples/etlidar_test.cpp",
+  "file": "/mnt/c/JARVIS/ydlidar/samples/etlidar_test.cpp",
+  "output": "samples/CMakeFiles/etlidar_test.dir/etlidar_test.cpp.o"
+},
+{
+  "directory": "/mnt/c/JARVIS/ydlidar/build/samples",
+  "command": "/usr/bin/c++  -I/mnt/c/JARVIS/ydlidar/. -I/mnt/c/JARVIS/ydlidar/core -I/mnt/c/JARVIS/ydlidar/src -I/mnt/c/JARVIS/ydlidar -I/mnt/c/JARVIS/ydlidar/.. -I/mnt/c/JARVIS/ydlidar/build/samples  -std=c++11 -fPIC -std=c++11 -o CMakeFiles/tof_test.dir/tof_test.cpp.o -c /mnt/c/JARVIS/ydlidar/samples/tof_test.cpp",
+  "file": "/mnt/c/JARVIS/ydlidar/samples/tof_test.cpp",
+  "output": "samples/CMakeFiles/tof_test.dir/tof_test.cpp.o"
+},
+{
+  "directory": "/mnt/c/JARVIS/ydlidar/build/samples",
+  "command": "/usr/bin/c++  -I/mnt/c/JARVIS/ydlidar/. -I/mnt/c/JARVIS/ydlidar/core -I/mnt/c/JARVIS/ydlidar/src -I/mnt/c/JARVIS/ydlidar -I/mnt/c/JARVIS/ydlidar/.. -I/mnt/c/JARVIS/ydlidar/build/samples  -std=c++11 -fPIC -std=c++11 -o CMakeFiles/ydlidar_test.dir/ydlidar_test.cpp.o -c /mnt/c/JARVIS/ydlidar/samples/ydlidar_test.cpp",
+  "file": "/mnt/c/JARVIS/ydlidar/samples/ydlidar_test.cpp",
+  "output": "samples/CMakeFiles/ydlidar_test.dir/ydlidar_test.cpp.o"
+},
+{
+  "directory": "/mnt/c/JARVIS/ydlidar/build/samples",
+  "command": "/usr/bin/cc  -I/mnt/c/JARVIS/ydlidar/. -I/mnt/c/JARVIS/ydlidar/core -I/mnt/c/JARVIS/ydlidar/src -I/mnt/c/JARVIS/ydlidar -I/mnt/c/JARVIS/ydlidar/.. -I/mnt/c/JARVIS/ydlidar/build/samples -fPIC -std=c++11 -o CMakeFiles/lidar_c_api_test.dir/lidar_c_api_test.c.o -c /mnt/c/JARVIS/ydlidar/samples/lidar_c_api_test.c",
+  "file": "/mnt/c/JARVIS/ydlidar/samples/lidar_c_api_test.c",
+  "output": "samples/CMakeFiles/lidar_c_api_test.dir/lidar_c_api_test.c.o"
+},
+{
+  "directory": "/mnt/c/JARVIS/ydlidar/build/python",
+  "command": "/usr/bin/c++ -D_ydlidar_EXPORTS -I/mnt/c/JARVIS/ydlidar/. -I/mnt/c/JARVIS/ydlidar/core -I/mnt/c/JARVIS/ydlidar/src -I/mnt/c/JARVIS/ydlidar -I/mnt/c/JARVIS/ydlidar/build -I/mnt/c/JARVIS/ydlidar/python -I/mnt/c/JARVIS/ydlidar/.. -I/mnt/c/JARVIS/ydlidar/build/python -I/usr/include/python3.9  -std=c++11 -std=c++11 -fPIC   -std=c++11 -fPIC -o CMakeFiles/_ydlidar.dir/CMakeFiles/_ydlidar.dir/ydlidar_sdkPYTHON_wrap.cxx.o -c /mnt/c/JARVIS/ydlidar/build/python/CMakeFiles/_ydlidar.dir/ydlidar_sdkPYTHON_wrap.cxx",
+  "file": "/mnt/c/JARVIS/ydlidar/build/python/CMakeFiles/_ydlidar.dir/ydlidar_sdkPYTHON_wrap.cxx",
+  "output": "python/CMakeFiles/_ydlidar.dir/CMakeFiles/_ydlidar.dir/ydlidar_sdkPYTHON_wrap.cxx.o"
+}
+]

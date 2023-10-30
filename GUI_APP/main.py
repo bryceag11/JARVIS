@@ -6,13 +6,12 @@ Description: Integration of wrapped GUI with the zoom SDK
 Provide live feed from the camera on the robot to allow user to see robot's environment in real time
 """
 
-import webview
-from gui import start_gui
+from gui import MotorControlGUI 
 
 
 
 if __name__ == '__main__':
+    ngui = MotorControlGUI()
+    ngui.start()
 
-    webview.create_window("J.A.R.V.I.S. Control", html="<p>Placeholder for embedded GUI</p>", js_api=start_gui)
-    webview.start()
     

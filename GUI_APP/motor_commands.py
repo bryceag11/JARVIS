@@ -86,27 +86,27 @@ class MotorCommands:
         self.set_speed2(ser, 128)
 
     def go_forward(self, ser, speed):
-        motor_speed = int(((100-speed)/100) * 128)
+        motor_speed = int(((speed)/100) * 128) + 127
         print(f"Going Forwards... Before: {speed}, After: {motor_speed}")
         self.set_speed1(ser, motor_speed)
         self.set_speed2(ser, motor_speed)
 
     def go_backward(self, ser, speed):
-        motor_speed = int((speed/100) * 127) + 128
+        motor_speed = int(((100-speed)/100) * 128)
         print(f"Going Backwards... Before: {speed}, After: {motor_speed}")
         self.set_speed1(ser, motor_speed)
         self.set_speed2(ser, motor_speed)
 
     def turn_right(self, ser, speed):
-        forward_speed = int(((100-speed)/100) * 128)
-        backward_speed = int((speed/100) * 127) + 128
+        forward_speed = int(((speed)/100) * 128) + 127
+        backward_speed = int(((100-speed)/100) * 128)
         print(f"Turning Right... Before: {speed}, After: F: {forward_speed}, B: {backward_speed}")
-        self.set_speed1(ser, backward_speed)
-        self.set_speed2(ser, forward_speed)
-
-    def turn_left(self, ser, speed):
-        forward_speed = int(((100-speed)/100) * 128)
-        backward_speed = int((speed/100) * 127) + 128
-        print(f"Turning Left... Before: {speed}, After: F: {forward_speed}, B: {backward_speed}")
         self.set_speed1(ser, forward_speed)
         self.set_speed2(ser, backward_speed)
+
+    def turn_left(self, ser, speed):
+        forward_speed = int(((speed)/100) * 128) + 127
+        backward_speed = int(((100-speed)/100) * 128)
+        print(f"Turning Left... Before: {speed}, After: F: {forward_speed}, B: {backward_speed}")
+        self.set_speed1(ser, backward_speed)
+        self.set_speed2(ser, forward_speed)

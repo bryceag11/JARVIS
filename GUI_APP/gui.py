@@ -2,17 +2,16 @@ import tkinter as tk
 from tkinter import ttk
 from motor_commands import MotorCommands
 from camera_control import CameraControl
-import webview
 
 class MotorControlGUI:
-    def __init__(self, port="COM3"):
+    def __init__(self, port="/dev/ttyUSB0"):
         self.root = tk.Tk()  # Initialize tkinter
         self.root.title("J.A.R.V.I.S. Control")
         self.root.geometry("650x300")  # Set a fixed size (adjust dimensions as needed)
         self.root.configure(bg="black")  # Set the overall background to black
         self.root.resizable(width=False, height=False)  # Make the window non-resizable
 
-        # self.motor_commands = MotorCommands()
+        self.motor_commands = MotorCommands()
         # self.camera_control = CameraControl()
 
         self.port = port
@@ -124,4 +123,6 @@ class MotorControlGUI:
         self.motor_commands.initialize_motors(self.ser)
 
     def start(self):
+        self.connect_and_initialize()
         self.root.mainloop()
+

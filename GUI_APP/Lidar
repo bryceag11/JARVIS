@@ -17,13 +17,13 @@ lidar_polar.autoscale_view(True,True,True)
 lidar_polar.set_rmax(RMAX)
 lidar_polar.grid(True)
 ports = ydlidar.lidarPortList();
-port = "/dev/ydlidar";
+port = "/dev/ttyUSB0";
 for key, value in ports.items():
     port = value;
     
 laser = ydlidar.CYdLidar();
 laser.setlidaropt(ydlidar.LidarPropSerialPort, port);
-laser.setlidaropt(ydlidar.LidarPropSerialBaudrate, 230400)
+laser.setlidaropt(ydlidar.LidarPropSerialBaudrate, 128000)
 laser.setlidaropt(ydlidar.LidarPropLidarType, ydlidar.TYPE_TRIANGLE);
 laser.setlidaropt(ydlidar.LidarPropDeviceType, ydlidar.YDLIDAR_TYPE_SERIAL);
 laser.setlidaropt(ydlidar.LidarPropScanFrequency, 10.0);
