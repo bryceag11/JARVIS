@@ -1,19 +1,28 @@
 """
-File: motor_commands.py
+File Name: camera_control.py
+
+Description: This script provides a class for controlling servo motors to tilt a camera via serial communication. It includes
+             methods for moving the camera in different directions, initializing it to default settings,
+             and disconnecting from the serial port.
+
+Usage: For use with a camera used for interpersonal communication. Create an instance of the 'CameraControl' class with the desired serial port 
+       (default is '/dev/ttyUSB0'). Use the provided methods to control the camera. Make sure to have the 'pyserial' library installed.
+
+
+
 Author: Bryce Grant
-Class: EE 491 (ECE Capstone II)
-Description: CameraControl class with methods for control of the camera servo motor
+
+Class: EE491 (ECE Capstone II)
 """
+
 import serial
 import time
-import motor_commands as m
 
 
 
 class CameraControl:
-    def __init__(self, port='COM4'):
+    def __init__(self):
         self.ser = None
-        self.connect_to_camera(port)
 
     def connect_to_camera(self, port):
         self.ser = serial.Serial()

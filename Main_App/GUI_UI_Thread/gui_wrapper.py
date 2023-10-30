@@ -1,6 +1,20 @@
+"""
+File Name: gui_wrapper.py
+
+Description: This script controls motors based on data received from a LiDAR sensor. 
+             It uses the PyLidar3 library for communication with the LiDAR device.
+
+Usage: Make sure to have the necessary dependencies installed, and provide correct 
+       port information for both the motors and the LiDAR device.
+
+Author: Bryce Grant
+
+Class: EE491 (ECE Capstone II)
+"""
+
 import tkinter as tk
 from tkinter import ttk
-from motor_commands import MotorCommands
+from Main_App.GUI_UI_Thread.motor_control import MotorCommands
 from camera_control import CameraControl
 
 class MotorControlGUI:

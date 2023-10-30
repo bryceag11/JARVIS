@@ -1,5 +1,17 @@
-#https://github.com/lakshmanmallidi/PyLidar3
-#~/.local/lib/python3.6/site-packages/PyLidar3/__init__.py  is the library with some modification  
+"""
+File Name: lidar_servo_slam.py
+
+Description: This script provides a visualization of Lidar data using OpenCV and OpenGL. 
+             It captures data from a Lidar device and overlays it on top of a video stream 
+             from a connected camera.
+
+Usage: Ensure to have the necessary libraries (PyLidar3, cv2, numpy, math, time, serial, pygame, OpenGL) installed.
+       https://github.com/lakshmanmallidi/PyLidar3.
+
+Author: Bryce Grant
+
+Class: EE491 (ECE Capstone II)
+"""
 
 import PyLidar3
 import cv2
@@ -12,6 +24,7 @@ from pygame.locals import *
 from OpenGL.GL import *
 from OpenGL.GLU import *
 
+# setting initial parameters
 pos=0
 vers=1
 v3dr=180
@@ -19,18 +32,18 @@ pos_init= 0
 pos_end = 32
 pos_step=2
 lidar_chunk_size=1280*2
-#lidar_chunk_size=200
 dist_limit=2000
 
-#VIDEOCAPTURE
+# video capture
 cap = cv2.VideoCapture(0)
 
+# video frame processing function
 def videocam(frame):
 
-    # Our operations on the frame come here
+    # frame operations here
     #gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-    # Display the resulting frame
+    # display the resulting frame
     #rfr = cv2.resize(frame,(640,480))
     #rfr = cv2.rotate(frame, cv2.ROTATE_90_COUNTERCLOCKWISE)
     rfr = cv2.rotate(frame, cv2.ROTATE_90_CLOCKWISE)
@@ -178,9 +191,9 @@ if(Obj.Connect()):
         center = (0,int(im.shape[0]/2)) 
         lcnt   = [center]
 
-        #Transform Lidar data
+        # transform Lidar data
 
-        # Capture frame-by-frame
+        # capture frame-by-frame
         ret, frame = cap.read()
         if ret: frm = videocam(frame)
 
@@ -200,7 +213,7 @@ if(Obj.Connect()):
             y3d = math.cos(math.radians(rdeg)) * dist 
             z3d = 4.5
      
-            #ROTATE POINT IN Y 
+            # rotate point in y
             v1 = np.array([x3d,y3d,z3d])
             rv1y = Ry(math.radians(pos))
             
@@ -218,7 +231,7 @@ if(Obj.Connect()):
             zr=rv1[2];
             yr=rv1[1];
 
-            rpp = [-50,yr,0]; #rayprojpoint
+            rpp = [-50,yr,0]; # ray projection point
             mrpp=rpp[1]/rpp[0];
             ix2=200/mrpp;
             
@@ -241,10 +254,10 @@ if(Obj.Connect()):
 
             points.append(rv1)
 
-            #Cono Campo visivo webcam
+            # Logitech Brio 4k Webcam
             kdeg = 434  #180 - 539 
             if dist > 0 and rdeg >= kdeg and rdeg <= kdeg+32 : 
-                lcnt.append([x,y]) #avoiding noise
+                lcnt.append([x,y]) # avoiding noise
                 cv2.circle(im, (int(x),int(y)), 2 , (0,0,255),-1)  #Point
 
         #print("---")
@@ -252,7 +265,7 @@ if(Obj.Connect()):
         ctr = np.array(lcnt).reshape((-1,1,2)).astype(np.int32)
         cv2.drawContours(im,[ctr],0,(0,255,0),-1)
 
-        #OPENGL VIEWER
+        # opengl viewer
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -296,7 +309,7 @@ if(Obj.Connect()):
 
 
 
-        #cross
+        # cross
         
         #xf1=int( im.shape[1]/2 +  math.cos(math.radians(16)) * 10000 * zoom)
         xf1 = int( 0 +  math.cos(math.radians(16)) * 10000 * zoom)
@@ -311,9 +324,9 @@ if(Obj.Connect()):
 
 
 
-        #The Lidar
+        # lidar UI
         cv2.circle(im, center, int(30*zoom) , (255,0,0),-1)
-        #The workspace 
+        # workspace 
         cv2.circle(im, center, int(300*zoom) , (0,0,255),3)
         #for mm in range(0,2000,100):
         #    thickness = 2 if mm % 1000 == 0 else 1
@@ -323,10 +336,10 @@ if(Obj.Connect()):
         #cv2.imshow("Lidar",cv2.flip(im,1))
         #cv2.imshow("Lidar",cv2.flip(im,-1))
 
-        #LIDAR SHOW
+        # show lidar
         #cv2.imshow("Lidar",im)
 
-        #INCREMENT SERVO POSITION
+        # increment servo position
         '''
         ok
         pos += vers        

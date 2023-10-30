@@ -1,17 +1,19 @@
+from Main_App.GUI_UI_Thread.motor_control import MotorCommands
 import threading
 import PyLidar3
 import math
 import time
-from romipi_astar.romipi_driver import AStar
 
-romi = AStar()
+motor = MotorCommands()
+ser = motor.connect_motors("dev/ttyUSB0")
+motor.initialize_motors(ser)
 
-speed = 0.2  # speed in m/s
-direction = 0.0 # direction in radians
+speed = 25
+direction = 0.0 # direction in degrees
 
 def drive():
     while True:
-        romi.twist(speed, 0)
+        motor.go_dir(ser, speed, direction)
 
 
 x=[]

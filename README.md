@@ -17,10 +17,19 @@ cd JARVIS
 ### Install the dependencies
 pip install -r requirements.txt
 
-## Usage
+## GUI Usage
 ### Launch the main program
-python main.py
-### Run the web interface for remote user connection
+python Main_App/GUI_UI_Thread/main.py
+
+## Lidar Usage
+### 3D Point Cloud Production
+python Main_App/Lidar_Thread/lidar_servo_slam.py
+
+### Point Cloud Viewer
+python Main_App/Lidar_Thread/opengl_viewer.py
+
+## Autonomous Robotic Movement
+python Main_App/Lidar_Thread/rover_lidar.py
 
 
 ## Setup UI/Server

@@ -1,9 +1,19 @@
 """
-File: motor_commands.py
+File Name: motor_commands.py
+
+Description: This script provides a class `MotorCommands` for controlling motors through serial communication. 
+             It includes methods for motor initialization, setting modes, obtaining motor status, 
+             and performing directional movements.
+
+Usage: Usage: For use with RD03 motor drives. Create an instance of the 'MotorCommands' class with the desired serial port 
+       (default is '/dev/ttyUSB0'). Use the provided methods to control the motors. Make sure to have the 'pyserial' library installed.
+       https://www.robot-electronics.co.uk/rd03-24v-robot-drive.html
+       
+
 Author: Bryce Grant
-Class: EE 491 (ECE Capstone II)
-Description: MotorCommands class with methods for motor control
-through the use of byte commands
+
+Class: EE491 (ECE Capstone II)
+
 """
 
 import serial
@@ -11,8 +21,11 @@ import threading
 
 class MotorCommands:
     def __init__(self):
-        pass  # Add any initialization code for the motor commands here
+        pass  
 
+    '''
+    Connects to the specified serial port and returns the serial connection object.
+    '''
     def connect_motors(self, port):
         ser = serial.Serial()
         ser.baudrate = 9600 
@@ -25,7 +38,10 @@ class MotorCommands:
         else:
             print(f"Failed to connect to port {port}\n")
             return None
-
+        
+    '''
+    Initializes the connected motors by setting various modes and configurations
+    '''
     def initialize_motors(self, ser):
         try:
             ser.flush()
@@ -80,10 +96,23 @@ class MotorCommands:
     def enable_timeout(self, ser):
         ser.write(bytearray([0, 57]))
 
-    def stop_now(self, ser):
+    def stop_motors(self, ser):
         ser.flush()
         self.set_speed1(ser, 128)
         self.set_speed2(ser, 128)
+
+    # Moves the motors based on a specified direction.
+
+    def go_dir(self, ser, speed, direction):
+
+        if 45 <= direction < 135:
+            self.go_forward(ser, speed)
+        elif 135 <= direction < 225:
+            self.turn_left(ser, speed)
+        elif 225 <= direction < 315:
+            self.go_backward(ser, speed)
+        else:
+            self.turn_right(ser, speed)
 
     def go_forward(self, ser, speed):
         motor_speed = int(((speed)/100) * 128) + 127
