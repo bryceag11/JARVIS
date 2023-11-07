@@ -13,12 +13,18 @@ Author: Bryce Grant
 Class: EE491 (ECE Capstone II)
 """
 
-
 from Main_App.GUI_UI_Thread.motor_control import MotorCommands
 import time
 import PyLidar3
 import math
 import threading
+import serial
+import pygame
+from pygame.locals import *
+from OpenGL.GL import *
+from OpenGL.GLU import *
+import cv2
+import numpy as np
 
 # initializing motor commands
 motor = MotorCommands()
@@ -44,6 +50,79 @@ motor_thread_run = True
 '''
 Drive function for motor thread
 '''
+def drive():
+    global motor_thread_run
+
+    while motor_thread_run:
+        motor.go_dir(ser, speed, direction) # move in the specified direction
+        time.sleep(0.2) # delay for processing stability
+
+    # cleanup and stop motor with false flag 
+    motor.stop_motors(ser)
+
+'''
+Render function for point cloud visualization
+'''
+def Render(pts):
+    glPointSize(2)
+    glBegin(GL_POINTS)  
+    sc=0.001
+    fk = 180-len(pts)
+
+    for i in range(0,len(pts)):
+        p = (sc*pts[i][0], sc*pts[i][1], sc*pts[i][2])
+        maxlength=1000
+        r=cmap(pts[i][2],0,maxlength,0,1)
+        g=cmap(pts[i][1],0,maxlength,0,1)
+        b=cmap(pts[i][0],0,maxlength,0,1)
+        
+        glColor3f(b,g,r) 
+        glVertex3fv(p)
+    glEnd()
+
+def cmap(x, in_min, in_max, out_min, out_max):
+    return (x - in_min) * (out_max - out_min) / float(in_max - in_min) + out_min;
+
+def Rx(theta):
+    return np.array([[ 1, 0           , 0           ],
+                     [ 0, math.cos(theta),-math.sin(theta)],
+                     [ 0, math.sin(theta), math.cos(theta)]])
+
+# Add Ry and Rz functions here
+
+def write_read(x):
+    arduino.write(bytes(str(x), 'utf-8'))
+    time.sleep(0.05)
+    data = arduino.readline()
+    return data
+
+arduino = serial.Serial(port='/dev/ttyACM0', baudrate=9600,timeout=.015)
+print("//waiting for Serial connection...")
+time.sleep(0.5)
+
+# Serial port to which lidar connected, Get it from device manager windows
+# In linux type in terminal -- ls /dev/tty* 
+# port = input("Enter port name which lidar is connected:") #windows
+
+# Initialize video capture
+cap = cv2.VideoCapture(0)
+
+# Video frame processing function
+def videocam(frame):
+    rfr = cv2.rotate(frame, cv2.ROTATE_90_CLOCKWISE)
+
+    div = 64 
+    quantized = (rfr // div * div) + div // 2
+    ksize = (10, 10) 
+    quantized = cv2.blur(quantized, ksize) 
+
+    cv2.line(rfr, (0, int(rfr.shape[0]/2)), (int(rfr.shape[1]), int(rfr.shape[0]/2)), (0, 255, 0), 1)
+    cv2.line(rfr, (int(rfr.shape[1]/2), 0), (int(rfr.shape[1]/2), int(rfr.shape[0])), (0, 255, 0), 1)
+
+    cv2.imshow('frame', rfr)
+    return rfr
+
+# Drive function for motor thread
 def drive():
     global motor_thread_run
 
