@@ -12,6 +12,7 @@
   <script src="./tools/vconsole.min.js"></script>
   <script src="./tools/token-tool.js"></script>
   <script src="./tools/cdn.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
   <link rel="stylesheet" href="cdn.css">
   <style>
     .horizontal-gap {
@@ -38,7 +39,7 @@
   <div id="ZoomEmbeddedApp"></div>
   <div class="controls-container">
     <div class="control-group">
-      <p class="control-title">Motor Controls</p>
+      <p class="control-title">Camera Controls</p>
       
       <div class="directional-buttons">
         <button id="direction-button-up" onmousedown="NavForward()" onmouseup="NavStop()" class="direction-button up">
@@ -66,23 +67,25 @@
     <p class="control-title">Navigation Controls</p>
 
     <div class="camera-buttons">
-      <button id="camera-button-up" onclick="CamUp()" class="camera-button up2">
+      <button id="camera-button-up" onclick="sendCommand('w')" class="camera-button up2">
         <span class="visually-hidden">up</span>
         <p class="button-label">&#10597;</p>
       </button>
-      <button id="camera-button-left" onclick="CamLeft()" class="camera-button left2">
+      <button id="camera-button-left" onclick="sendCommand('a')" class="camera-button left2">
         <span class="visually-hidden">left</span>
         <p class="button-label">&#10596;</p>
       </button>
-      <button id="camera-button-right" onclick="CamRight()" class="camera-button right2">
+      <button id="camera-button-right" onclick="sendCommand('d')" class="camera-button right2">
         <span class="visually-hidden">right</span>
         <p class="button-label">&#10598;</p>
       </button>
-      <button id="camera-button-down" onclick="CamDown()" class="camera-button down2">
+      <button id="camera-button-down" onclick="sendCommand('s')" class="camera-button down2">
         <p class="button-label">""</p>
       </button>
-      <button onclick="CamCenter()" type="button">⟲</button>
-      <button onclick="CamDrive()" type="button">⟳</button>
+      <button id="camera-button-mode" onclick="sendCommand('m')" class ="camera-button mode2">
+        <span class="visually-hidden">mode</span>
+        <p class="button-label">&#10597;</p>
+      </button>
     </div>
   </div>
   </div>
@@ -92,7 +95,7 @@
 <!--Javascript functions-->
 <script>
 
-let socket = new WebSocket("ws://10.47.194.193:8000");
+let socket = new WebSocket("http://10.47.67.233:5000");
   function InitWebSocket() {
     console.log("init web socket")
 
@@ -168,35 +171,52 @@ let socket = new WebSocket("ws://10.47.194.193:8000");
     wsSend("X");
   }
 
-  //Camera functions
-  function CamUp() {
-    console.log("Camera up");
-    wsSend("1");
-  }
+  //Old Camera functions
+  // function CamUp() {
+  //   console.log("Camera up");
+  //   wsSend("1");
+  // }
 
-  function CamLeft() {
-    console.log("Camera left");
-    wsSend("3");
-  }
+  // function CamLeft() {
+  //   console.log("Camera left");
+  //   wsSend("3");
+  // }
 
-  function CamRight() {
-    console.log("Camera right");
-    wsSend("4");
-  }
+  // function CamRight() {
+  //   console.log("Camera right");
+  //   wsSend("4");
+  // }
 
-  function CamDown() {
-    console.log("Camera down");
-    wsSend("2");
-  }
+  // function CamDown() {
+  //   console.log("Camera down");
+  //   wsSend("2");
+  // }
 
-  function CamCenter() {
-    console.log("Camera center");
-    wsSend("5");
-  }
+  // function CamCenter() {
+  //   console.log("Camera center");
+  //   wsSend("5");
+  // }
 
-  function CamDrive() {
-    console.log("Camera drive mode");
-    wsSend("6");
+  // function CamDrive() {
+  //   console.log("Camera drive mode");
+  //   wsSend("6");
+  // }
+
+  //Updated Camera Functions
+  function sendCommand(command){
+    fetch('/control', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: 'command=' + command
+    })
+    .then(response => {
+      console.log('Command sent:', command);
+    })
+    .catch(error => {
+      console.error('Error sending command:', error);
+    });
   }
 </script>
 
