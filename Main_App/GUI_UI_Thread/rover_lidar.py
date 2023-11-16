@@ -59,12 +59,13 @@ Obj = PyLidar3.YdLidarX4(port) #PyLidar3.YDLidarX4(port,chunk_size)
 
 # global flag for motor thread stoppage
 motor_thread_run = True
+object_detected = False
 
 '''
 Drive function for motor thread
 '''
 def drive():
-    global motor_thread_run
+    global motor_thread_run, object_detected
 
     while motor_thread_run:
         data = next(gen) # get lidar scan data
@@ -73,6 +74,7 @@ def drive():
         center_total = 0
         bias = 0
         
+        time.sleep(0.2)  # Delay for processing stability
         # measurement and calculation of averages and values
         for angle in range(340,360):  # measure the center
             if(data[angle]> 0):
@@ -112,18 +114,15 @@ def drive():
 
         print ("Sum Steer", round(sum_angle,2))
 
-        # convert radians to degrees and ensure it's within [0, 2π]
-        direction = sum_angle * (180 / math.pi) % 360
-        sum_dist = math.sqrt(sum_x**2 + sum_y**2)
-
-        # ... (previous code for calculating averages and coordinates remains unchanged)
-
-        # Assuming left_lidar_data and right_lidar_data contain data from left and right lidar respectively
+                # Assuming left_lidar_data and right_lidar_data contain data from left and right lidar respectively
         left_lidar_data = []  # Replace with actual left lidar data
         right_lidar_data = []  # Replace with actual right lidar data
 
         # Check if an object is detected within 900mm in front
         if center_average < 900:
+            # Set flag for object detected
+            object_detected = True
+
             # Stop the rover
             motor.stop_motors(ser)
 
@@ -135,21 +134,30 @@ def drive():
                 # Turn left
                 motor.turn_left(ser, speed)
         else:
+            # If an object was previously detected, continue moving backwards
+            if object_detected:
+                motor.go_backward(ser, speed)  # Move backward
+                time.sleep(1)  # Continue moving backward for 1 second
+                object_detected = False  # Reset object detection flag
+
             # Convert radians to degrees and ensure it's within [0, 360)
             direction = sum_angle * (180 / math.pi) % 360
 
             # Continue normal movement based on calculated direction
             motor.go_dir(ser, speed, direction)
         
-        time.sleep(0.2)  # delay for processing stability
-    # cleanup and stop motor with false flag 
-    motor.stop_motors(ser)
+        time.sleep(0.2)  # Delay for processing stability
+
+        # # convert radians to degrees and ensure it's within [0, 2π]
+        # direction = sum_angle * (180 / math.pi) % 360
+        # sum_dist = math.sqrt(sum_x**2 + sum_y**2)
+
 
 '''
 Main function for data processing and motor control
 '''
 def main():
-    global direction
+    global motor_thread_run, object_detected 
     try:
         if(Obj.Connect()): # establish connection to LiDAR device
             print(Obj.GetDeviceInfo())
@@ -160,8 +168,6 @@ def main():
 
         while True:
             data = next(gen)
-
-            pass
 
     except (KeyboardInterrupt, SystemExit):
         print("Quitting")
@@ -175,3 +181,6 @@ def main():
         # disconnect the lidar
         Obj.StopScanning() 
         Obj.Disconnect()
+
+if __name__ == "__main__":
+    main()
