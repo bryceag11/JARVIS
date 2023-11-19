@@ -105,14 +105,32 @@ class MotorCommands:
 
     def go_dir(self, ser, speed, direction):
 
-        if 45 <= direction < 135:
-            self.go_forward(ser, speed)
-        elif 135 <= direction < 225:
-            self.turn_left(ser, speed)
-        elif 225 <= direction < 315:
-            self.go_backward(ser, speed)
+        # Normalize direction angle within [0, 360) range
+        direction %= 360
+
+        # Define thresholds for movement directions (adjust these based on your robot's behavior)
+        forward_threshold = 10
+        backward_threshold = 190
+        left_threshold = 100
+        right_threshold = 280
+
+        # Adjust motor speeds based on the desired speed
+        motor_speed = int(((speed) / 100) * 128)
+        motor_speed_back = int(((100 - speed) / 100) * 128)
+
+        # Move the robot based on the steering angle
+        if direction < forward_threshold or direction >= backward_threshold:
+            # Move forward
+            self.go_forward(ser, motor_speed)
+        elif left_threshold <= direction < right_threshold:
+            # Turn left
+            self.turn_left(ser, motor_speed)
+        elif right_threshold <= direction < backward_threshold:
+            # Turn right
+            self.turn_right(ser, motor_speed)
         else:
-            self.turn_right(ser, speed)
+            # Move backward
+            self.go_backward(ser, motor_speed_back)
 
     def go_forward(self, ser, speed):
         motor_speed = int(((speed)/100) * 128) + 127

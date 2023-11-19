@@ -24,6 +24,7 @@ python Main_App/GUI_UI_Thread/main.py
 ## Lidar Usage
 ### 3D Point Cloud Production
 python Main_App/Lidar_Thread/lidar_servo_slam.py
+![280174528-88590529-98a1-48a9-a43c-3b853d508ee4](https://github.com/bryceag11/JARVIS/assets/67086260/53a1c7e2-c1f1-445c-97e3-ae879bf7a653)
 
 ### Point Cloud Viewer
 python Main_App/Lidar_Thread/opengl_viewer.py
