@@ -34,6 +34,7 @@ pos_step=2
 lidar_chunk_size=1280*2
 dist_limit=2000
 
+
 # video capture
 cap = cv2.VideoCapture(0)
 

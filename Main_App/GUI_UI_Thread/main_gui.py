@@ -11,7 +11,7 @@ Author: Bryce Grant
 Class: EE491 (ECE Capstone II)
 """
 
-from Main_App.GUI_UI_Thread.gui_wrapper import MotorControlGUI 
+from gui_wrapper import MotorControlGUI 
 
 
 

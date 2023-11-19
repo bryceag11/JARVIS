@@ -104,3 +104,18 @@ function websdkready() {
   });
 };
 
+// //NEW BATTERY PERCENT UPDATES, DELETE IF BROKEN
+// //Create WebSocket Connection to Flask Server
+// const socket = io.connect('http://10.47.67.233:5000');
+
+// socket.on('connect', () => {
+//   console.log('Connected to Flask WebSocket');
+// });
+
+// //Listen for battery percentage updates
+// socket.on('update_battery', (data) => {
+//   const batteryPercent = data.batteryPercent;
+
+// //Update html with battery percentage
+// document.getElementById('batteryPercent').textContent = 'Battery Percentage: ${batteryPercent}%';
+// });

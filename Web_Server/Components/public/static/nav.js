@@ -164,3 +164,19 @@ function websdkready() {
   };
 
 }
+
+// SocketIO
+var newSocket = io("http://10.47.67.233:5000");
+
+// Event handlers for SocketIO events
+newSocket.on('connect', function(){
+  console.log('Successfully connected to server');
+});
+newSocket.on('disconnect', function(){
+  console.log('Disconnected from server');
+});
+
+// Send data via SocketIO
+function sendData(data){
+  newSocket.emit('dataEvent', data);
+}

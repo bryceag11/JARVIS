@@ -14,7 +14,7 @@ Class: EE491 (ECE Capstone II)
 
 import tkinter as tk
 from tkinter import ttk
-from Main_App.GUI_UI_Thread.motor_control import MotorCommands
+from motor_control import MotorCommands
 from camera_control import CameraControl
 
 class MotorControlGUI:
