@@ -13,14 +13,14 @@ function websdkready() {
   console.log("checkSystemRequirements");
   // console.log(JSON.stringify(ZoomMtgEmbedded.checkSystemRequirements()));
 
-  var SDK_KEY = "xmy8waj4OFF5bmmYL9VGLafTHSuWIQObmX0m";
+  var CLIENT_ID = "T5kM499IQWSkBeRqYAJnuQ";
 
   /**
-   * NEVER PUT YOUR ACTUAL API SECRET IN CLIENT SIDE CODE, THIS IS JUST FOR QUICK PROTOTYPING
+   * NEVER PUT YOUR ACTUAL SDK SECRET OR CLIENT SECRET IN CLIENT SIDE CODE, THIS IS JUST FOR QUICK PROTOTYPING
    * The below generateSignature should be done server side as not to expose your api secret in public
-   * You can find an eaxmple in here: https://marketplace.zoom.us/docs/sdk/native-sdks/web/signature
+   * You can find an example in here: https://developers.zoom.us/docs/meeting-sdk/auth/#signature
    */
-  var SDK_SECRET = "jsYtKy8hxV6RQIxoek8U5QfDdaH9x4ylvGKB";
+  var CLIENT_SECRET = "S8XC6YwLBWI644inglCXgdZAL6R1ckR9";
   // some help code, remember mn, pwd, lang to cookie, and autofill.
   document.getElementById("display_name").value =
     testTool.detectOS() +
@@ -97,13 +97,13 @@ function websdkready() {
       // generateSDKSignature define in token-tool.js
       var signature = generateSDKSignature({
         meetingNumber: meetingConfig.mn,
-        sdkKey: SDK_KEY,
-        sdkSecret: SDK_SECRET,
+        sdkKey: CLIENT_ID,
+        sdkSecret: CLIENT_SECRET,
         role: meetingConfig.role,
         success: function (res) {
           console.log(res);
           meetingConfig.signature = res;
-          meetingConfig.sdkKey = SDK_KEY;
+          meetingConfig.sdkKey = CLIENT_ID;
           if (document.getElementById('demoType').value === 'cdn') {
           var joinUrl = "/cdn.html?" + testTool.serialize(meetingConfig);
           console.log(joinUrl);
@@ -135,13 +135,13 @@ function websdkready() {
     }
     var signature = generateSDKSignature({
       meetingNumber: meetingConfig.mn,
-      sdkKey: SDK_KEY,
-      sdkSecret: SDK_SECRET,
+      sdkKey: CLIENT_ID,
+      sdkSecret: CLIENT_SECRET,
       role: meetingConfig.role,
       success: function (res) {
         console.log(res);
         meetingConfig.signature = res;
-        meetingConfig.sdkKey = SDK_KEY;
+        meetingConfig.sdkKey = CLIENT_ID;
         if (document.getElementById('demoType').value === 'cdn') {
           var joinUrl =
           testTool.getCurrentDomain() +
