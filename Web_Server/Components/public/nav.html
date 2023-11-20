@@ -3,10 +3,11 @@
 <head>
   <title>Connect to JARVIS</title>
   <meta charset="utf-8" />
-  <link type="text/css" rel="stylesheet" href="https://source.zoom.us/2.7.0/css/bootstrap.css" />
-  <link type="text/css" rel="stylesheet" href="https://source.zoom.us/2.7.0/css/react-select.css" />
+  <link type="text/css" rel="stylesheet" href="https://source.zoom.us/2.18.0/css/bootstrap.css" />
+  <link type="text/css" rel="stylesheet" href="https://source.zoom.us/2.18.0/css/react-select.css" />
   <meta name="format-detection" content="telephone=no">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous"></script>
   <script src="./tools/jsrsasign-all-min.js"></script>
   <script src="./tools/tool.js"></script>
   <script src="./tools/token-tool.js"></script>
@@ -64,9 +65,8 @@
   <br>
   <br>
   <br>
-  <b>Meeting ID: 6962504949</b>
+  <b>Meeting ID: 6758769716   Password: Uy56Tr</b>
   <br>
-  <img src="team_logo.png" alt="JARVIS">
   <nav id="nav-tool" class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
       <div class="navbar-header">
@@ -75,7 +75,7 @@
       <div id="navbar" class="websdktest">
         <form class="navbar-form navbar-right" id="meeting_form">
           <div class="form-group">
-            <input type="text" name="display_name" id="display_name" value="2.7.0#CDN" maxLength="100"
+            <input type="text" name="display_name" id="display_name" value="2.18.0#CDN" maxLength="100"
               placeholder="Name" class="form-control" required>
           </div>
           <div class="form-group">
@@ -95,7 +95,6 @@
             <select id="meeting_role" class="sdk-select">
               <option value=0>Attendee</option>
               <option value=1>Host</option>
-              <option value=5>Assistant</option>
             </select>
           </div>
           <div class="form-group">
