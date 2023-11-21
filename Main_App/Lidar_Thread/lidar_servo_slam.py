@@ -136,14 +136,15 @@ def Rz(theta):
 
 def write_read(x):
 
-    arduino.write(bytes(str(x), 'utf-8'))
-    #arduino.write( str(x).encode() )
+    x_str = str(x) + '\n'  # Add a newline character to the end of the string
+    arduino.write(x_str.encode())  # Encode the string as bytes and send it over serial
     time.sleep(0.05)
-    data = arduino.readline()
+    data = arduino.readline().strip()  # Read the response from Arduino
     return data
 
 
-arduino = serial.Serial(port='/dev/ttyACM0', baudrate=9600,timeout=.015)
+
+arduino = serial.Serial(port='/dev/ttyACM1', baudrate=9600,timeout=.015)
 print("//waiting for Serial connection...")
 time.sleep(0.5)
 
@@ -155,7 +156,7 @@ port = "/dev/ttyUSB0" #linux
 Obj = PyLidar3.YdLidarX4(port, lidar_chunk_size) #PyLidar3.your_version_of_lidar(port,chunk_size)
 points=[]
 lpoints=[]
-
+xyz_file = open("lidar.xyz", "w")
 if(Obj.Connect()):
     print("/*",Obj.GetDeviceInfo(),"*/")
 
@@ -183,7 +184,7 @@ if(Obj.Connect()):
         ipos = bpos.decode()
         print(pos,ipos)
 
-        #print(pos,ipos)
+        print(pos,ipos)
         #GET LIDAR DATA 
         data=next(gen)
         
@@ -254,7 +255,6 @@ if(Obj.Connect()):
 
 
             points.append(rv1)
-
             # Logitech Brio 4k Webcam
             kdeg = 434  #180 - 539 
             if dist > 0 and rdeg >= kdeg and rdeg <= kdeg+32 : 
@@ -321,7 +321,8 @@ if(Obj.Connect()):
    
         im = cv2.line(im,center,(xf1,yf1),(0,0,255),1)
         im = cv2.line(im,center,(int(im.shape[1]), int(im.shape[0]/2)),(0,0,255),1)
-        im = cv2.line(im,center,(xf2,yf2),(0,0,255),1)
+        im = cv2.line(
+        im,center,(xf2,yf2),(0,0,255),1)
 
 
 
