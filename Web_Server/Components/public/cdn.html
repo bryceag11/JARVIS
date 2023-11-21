@@ -8,7 +8,6 @@
   <script src="https://source.zoom.us/2.18.0/lib/vendor/react.min.js"></script>
   <script src="https://source.zoom.us/2.18.0/lib/vendor/react-dom.min.js"></script>
   <script src="https://source.zoom.us/2.18.0/zoom-meeting-embedded-2.18.0.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/socket.io/client-dist/socket.io.js"></script>
   <script src="./tools/tool.js"></script>
   <script src="./tools/vconsole.min.js"></script>
   <script src="./tools/token-tool.js"></script>
@@ -36,46 +35,41 @@
 </head>
 
 <body style ="background-color: navy;">
- <div class="side-buttons">
-  <button class="rectangular-button">Autonomous Navigation</button>
-  <button class="rectangular-button">Manual Navigation</button>
-</div>
-  <!-- <div id="ZoomEmbeddedApp"></div>
-  <div class="controls-container">
-    <div class="control-group">
-      <p class="control-title">Motor Controls</p>
-      
-      <div class="directional-buttons">
-        <button id="direction-button-forward" onclick="sendCommand('i')" class="direction-button forward2">
-          <span class="visually-hidden">forward</span>
-          <p class="button-label">&#10605;</p>
-        </button>
-        <button id="direction-button-left" onclick="sendCommand('j')" class="direction-button left2">
-          <span class="visually-hidden">left</span>
-          <p class="button-label">&#10604;</p>
-        </button>
-        <button id="direction-button-right" onclick="sendCommand('l')" class="direction-button right2">
-          <span class="visually-hidden">right</span>
-          <p class="button-label">&#10605;</p>
-        </button>
-        <button id="direction-button-backward" onclick="sendCommand('k')" class="direction-button backward2">
-          <span class="visually-hidden">down</span>
-          <p class="button-label">&#10604;</p>
-        </button>
-      </div>
-    </div> -->
-  <div id="ZoomEmbeddedApp"></div>
-  <div class="controls-container">
-    <div class="control-group">
-      <p class="control-title">Motor Controls</p>
-      
-      <!-- Change MotorFunction() -->
+  <div class ="battery-percentage">
+    <span id="battery-value"></span>
+  </div>
 
-      <div class="directional-buttons">
-        <!-- update camCenter() functions below -->
-        <button onclick="CamCenter()" type="button">⟲</button>
-        <button onclick="CamDrive()" type="button">⟳</button>
-        <button id="direction-button-up" onmousedown="NavForward()" onmouseup="NavStop()" class="direction-button up">
+ <div class="side-buttons">
+  <div class="navigation-mode-title">Navigation Mode</div>
+  <button id="auto-btn" class="rectangular-button" onclick="Auto()">Autonomous Navigation</button>
+  <button id="man-btn" class="rectangular-button" onclick="Man()" disabled>Manual Navigation</button>
+</div>
+
+<div class="controls-container">
+  <!-- ... Existing code for autonomous and manual buttons ... -->
+  
+  <div class="speed-section">
+      <div class="robot-speed-title">Robot Speed</div>
+      <button id="home-base-btn" class="speed-button" onclick="Home()">Home Base 5%</button>
+      <button id="low-btn" class="speed-button" onclick="Low()" disabled>Low 25%</button>
+      <button id="med-btn" class="speed-button" onclick="Med()">Med 50%</button>
+      <button id="high-btn" class="speed-button" onclick="High()">High 75%</button>
+    </div>
+  </div>
+</div>
+
+
+<div id="ZoomEmbeddedApp"></div>
+<div class="controls-container">
+  <div class="control-group">
+    <p class="control-title">Motor Controls</p>
+    
+    <!-- Change MotorFunction() -->
+
+    <div class="directional-buttons">
+        <button onclick="RRotate()" type="button">⟳</button>
+        <button onclick="LRotate()" type="button">⟲</button>
+        <button id="direction-button-up" onclick="NavForwardClick()" onmousedown="NavForward()" onmouseup="NavStop()" class="direction-button up">
           <span class="visually-hidden">up</span>
           <p class="button-label">&#10605;</p>
         </button>
@@ -85,11 +79,11 @@
         </button>
         <button id="direction-button-right" onclick="NavRightClick()" onmousedown="NavRightHold()" onmouseup="NavStop()" class="direction-button right">
           <span class="visually-hidden">right</span>
-          <p class="button-label">&#10605;</p>
+          <p class="button-label">&#10603;</p>
         </button>
-        <button id="direction-button-down" onmousedown="NavBackward()" onmouseup="NavStop()" class="direction-button down">
+        <button id="direction-button-down" onclick="NavBackward()" onmousedown="NavBackHold()" onmouseup="NavStop()" class="direction-button down">
           <span class="visually-hidden">down</span>
-          <p class="button-label">&#10604;</p>
+          <p class="button-label">&#10602;</p>
         </button>
       </div>
     </div>
@@ -122,25 +116,26 @@
     </div>
     </div> -->
     <div class="camera-buttons">
-      <button id="camera-button-up" onclick="sendCommand('w')" class="camera-button up2">
+      <button id="camera-button-up" onclick="CamUp()" onmousedown="CamUphold()" onmouseup=ClearInt() class="camera-button up2">
         <span class="visually-hidden">up</span>
         <p class="button-label">&#10597;</p>
       </button>
-      <button id="camera-button-left" onclick="sendCommand('a')" class="camera-button left2">
+      <button id="camera-button-left" onclick="CamLeft()" onmousedown="CamLefthold()" onmouseup=ClearInt() class="camera-button left2">
         <span class="visually-hidden">left</span>
         <p class="button-label">&#10596;</p>
       </button>
-      <button id="camera-button-right" onclick="sendCommand('d')" class="camera-button right2">
+      <button id="camera-button-right" onclick="CamRight()" onmousedown="CamRighthold()" onmouseup=ClearInt() class="camera-button right2">
         <span class="visually-hidden">right</span>
         <p class="button-label">&#10598;</p>
       </button>
-      <button id="camera-button-down" onclick="sendCommand('s')" class="camera-button down2">
-        <p class="button-label">""</p>
+      <button id="camera-button-down" onclick="CamDown()" onmousedown="CamDownhold()" onmouseup=ClearInt() class="camera-button down2">
+        <p class="button-label">&#10604;</p>
       </button>
-      <button onclick="sendCommand('m')" type="button">Change Mode</button>
+      <button onclick="CamMode()" type="button">Change Mode</button>
     </div>
   </div>
   </div>
+
 
 <!-- Motor Controls section -->
 <div class="controls-container">
@@ -150,33 +145,233 @@
 </body>
 
 <script>
+  let socket = new WebSocket("ws://10.47.244.128:8000/");
 
- // New SocketIO Stuff
-var newSocket = io.connect('http://localhost:3000')
-newSocket.on('connect', function(){
-  console.log('Connected to server');
-});
-newSocket.on('disconnect', function(){
-  console.log('Disconnected from server');
-});
+  socket.addEventListener("open", function(event) {
+    console.log("[open] Connection established");
+  });
 
-  //Updated Camera Functions
-  function sendCommand(command){
-    fetch('http://localhost:3000/cdn.html', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: 'command=' + command
-    })
-    .then(response => {
-      console.log('Command sent:', command);
-    })
-    .catch(error => {
-      console.error('Error sending command:', error);
-    });
+  socket.addEventListener("message", function(event) {
+    console.log(`[message] Data received from server: ${event.data}`);
+    // Handle incoming messages from the server if necessary
+    // Example: Perform actions based on the received data
+    const batteryValue = document.getElementById('battery-value');
+    if (batteryValue) {
+        batteryValue.textContent = `Battery: ${event.data}%`;
+        if (event.data >= 75) {
+          batteryValue.style.color = 'green'; // Set font color to green for high battery
+        } 
+        else if (event.data >= 25) {
+          batteryValue.style.color = 'orange'; // Set font color to orange for moderate battery
+        } 
+        else {
+          batteryValue.style.color = 'red'; // Set font color to red for low battery
+        }
+    }
+  });
+
+
+  socket.addEventListener("close", function(event) {
+    console.log("socket closed", event);
+  });
+
+  function isOpen(socket) {
+    return socket.readyState === socket.OPEN;
   }
- 
+
+  function wsSend(msg) {
+    if (isOpen(socket)) {
+      socket.send(msg);
+      console.log("Message sent:", msg);
+    } else {
+      console.log("ERROR: Socket is closed");
+    }
+
+  }
+  /*
+  ******* WebSocket Functions *******
+  These functions are called on button clicks
+  Click functions used for small adjustments (onclick)
+  Hold functions used for long click and hold turning (onmousedown/onmouseup)
+  */
+
+  // Navigation Functions
+  function NavForward() {
+    console.log("Up button held");
+    sendInterval = setInterval(() => wsSend("W"), 100);
+  }
+  function NavForwardClick() {
+    console.log("Up button clicked");
+    wsSend("T");
+  }
+
+  function NavRightClick() {
+    console.log("Right button clicked");
+    wsSend("D");
+  }
+  function NavRightHold() {
+    console.log("Right button held");
+    sendInterval = setInterval(() => wsSend("DX"), 100);
+  }
+
+  function NavLeftClick() {
+    console.log("Left button clicked");
+    wsSend("A");
+  }
+  function NavLeftHold() {
+    console.log("Left button held");
+    sendInterval = setInterval(() => wsSend("AX"), 100);
+  }
+
+  function NavBackward() {
+    console.log("Down button clicked");
+    wsSend("S");
+  }
+
+  function NavBackHold() {
+    console.log("Down button held");
+    sendInterval = setInterval(() => wsSend("S"), 100);
+  }
+
+  function NavStop() {
+    console.log("Sending stop command");
+    clearInterval(sendInterval);
+    wsSend("X");
+  }
+
+  function LRotate() {
+    console.log("L Rotate button clicked");
+    wsSend("Q");
+  }
+
+  function RRotate() {
+    console.log("R Rotate button clicked");
+    wsSend("E");
+
+  }
+  // Camera functions
+  function ClearInt(){
+    clearInterval(sendInterval)
+
+  }
+  function CamUp() {
+    console.log("Cam up button clicked");
+    wsSend("z");
+  }
+
+  function CamUphold() {
+    console.log("Cam up button held");
+    sendInterval = setInterval(() => wsSend("z"), 200);
+  }
+
+  function CamLeft() {
+    console.log("Camera left button clicked");
+    wsSend("y");
+  }
+
+  function CamLefthold() {
+    console.log("Cam left button held");
+    sendInterval = setInterval(() => wsSend("y"), 200);
+  }
+
+  function CamRight() {
+    console.log("Cam right button clicked");
+    wsSend("u");
+  }
+
+  function CamRighthold() {
+    console.log("Cam right button held");
+    sendInterval = setInterval(() => wsSend("u"), 200);
+  }
+
+  function CamDown() {
+    console.log("Cam down button clicked");
+    wsSend("p");
+  }
+
+  function CamDownhold() {
+    console.log("Cam down button held");
+    sendInterval = setInterval(() => wsSend("p"), 200);
+  }
+
+  function CamMode() {
+    console.log("Camera drive mode");
+    wsSend("l");
+  }
+
+  // Speed Commands
+  function Home() {
+    // Disable the 'Home' button and enable other buttons
+    document.getElementById('home-base-btn').disabled = true;
+    document.getElementById('low-btn').disabled = false;
+    document.getElementById('med-btn').disabled = false;
+    document.getElementById('high-btn').disabled = false;
+
+    // Send WebSocket command
+    wsSend("home");
+  }
+
+  function Low() {
+    // Disable the 'Low' button and enable other buttons
+    document.getElementById('home-base-btn').disabled = false;
+    document.getElementById('low-btn').disabled = true;
+    document.getElementById('med-btn').disabled = false;
+    document.getElementById('high-btn').disabled = false;
+
+    // Send WebSocket command
+    wsSend("low");
+  }
+
+  function Med() {
+    // Disable the 'Med' button and enable other buttons
+    document.getElementById('home-base-btn').disabled = false;
+    document.getElementById('low-btn').disabled = false;
+    document.getElementById('med-btn').disabled = true;
+    document.getElementById('high-btn').disabled = false;
+
+    // Send WebSocket command
+    wsSend("med");
+  }
+
+  function High() {
+    // Disable the 'High' button and enable other buttons
+    document.getElementById('home-base-btn').disabled = false;
+    document.getElementById('low-btn').disabled = false;
+    document.getElementById('med-btn').disabled = false;
+    document.getElementById('high-btn').disabled = true;
+
+    // Send WebSocket command
+    wsSend("high");
+  }
+
+
+  // Your existing manual navigation functions...
+  // ...
+
+  // Function to control the robot manually
+  function Man() {
+      document.getElementById('auto-btn').disabled = false; // Enable Autonomous Navigation button
+      document.getElementById('man-btn').disabled = true; // Disable Manual Navigation button
+      // Add your code to control the robot manually based on user input
+      // For example, using your existing manual navigation functions
+      wsSend("Man");
+  }
+
+  // Function to control the robot autonomously
+  function Auto() {
+      document.getElementById('man-btn').disabled = false; // Enable Manual Navigation button
+      document.getElementById('auto-btn').disabled = true; // Disable Autonomous Navigation button
+      // Add your code for autonomous navigation here
+      wsSend("Auto");
+  }
+
+
+
+  // Event listener for the Manual Navigation button click
+  document.getElementById('auto-btn').addEventListener('click', Auto);
+  document.getElementById('man-btn').addEventListener('click', Man);
+
 </script>
+
 
 </html>
