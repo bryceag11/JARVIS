@@ -253,6 +253,33 @@ div.horizontalgap {
   height: 0px;
   width: 1px;
 }
+.side-buttons {
+  position: fixed;
+  top: 125px; /* Adjust the distance from the top */
+  right: 300px; /* Adjust the distance from the right */
+  text-align: right; /* Align buttons to the right */
+}
+
+.rectangular-button {
+  display: block;
+  width: 200px; /* Adjust button width */
+  height: 75px; /* Adjust button height */
+  margin-bottom: 10px; /* Adjust margin between buttons */
+  background-color: rgb(131, 0, 0); /* Button background color */
+  border: none;
+  color: rgb(255, 255, 255); /* Button text color */
+  font-size: 16px; /* Button text size */
+}
+
+.battery-percentage {
+  position: absolute;
+  top: 20px; /* Adjust the distance from the top */
+  right: 20px; /* Adjust the distance from the right */
+  color: white;
+  font-size: 26px;
+  font-weight: bold;
+  /* Add any additional styling as needed */
+}
 
 /* other styles */
 html, body {
