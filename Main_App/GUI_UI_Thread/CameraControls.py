@@ -1,14 +1,13 @@
 import serial
 
-class CameraControls:
-    def __init__(self, arduino_port='/dev/ttyUSB0'):
+class Camera_Control:
+    def __init__(self, arduino_port='/dev/ttyACM0'):
         self.arduino_port = arduino_port
-        self.ser = self.connect_to_arduino()
 
-    def connect_to_arduino(self):
+    def connect_to_arduino(self, port):
         ser = serial.Serial()
         ser.baudrate = 9600
-        ser.port = self.arduino_port
+        ser.port = port
         ser.open()
 
         if ser.is_open:
@@ -18,29 +17,29 @@ class CameraControls:
             print(f"Failed to connect to Arduino on port {self.arduino_port}\n")
             return None
 
-    def move_left(self):
-        self.ser.write(b'a')
+    def move_left(self, serie):
+        serie.write(b'a')
 
-    def move_right(self):
-        self.ser.write(b'd')
+    def move_right(self, serie):
+        serie.write(b'd')
 
-    def move_up(self):
-        self.ser.write(b'w')
+    def move_up(self, serie):
+        serie.write(b'w')
 
-    def move_down(self):
-        self.ser.write(b's')
+    def move_down(self, serie):
+        serie.write(b's')
 
-    def change_mode(self):
-        self.ser.write(b'm')
+    def change_mode(self, serie):
+        serie.write(b'm')
 
     # add if neededd
     #def stop_motors(self):
         # Send a stop signal or any other command as needed to stop motors
         # pass
 
-    def close_connection(self):
-        if self.ser.is_open:
-            self.ser.close()
+    def close_connection(self, serie):
+        if serie.is_open:
+            serie.close()
             print("Connection closed\n")
         else:
             print("Connection is not open\n")
