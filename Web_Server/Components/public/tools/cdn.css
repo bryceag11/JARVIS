@@ -253,23 +253,20 @@ div.horizontalgap {
   height: 0px;
   width: 1px;
 }
-.side-buttons {
-  position: fixed;
-  top: 125px; /* Adjust the distance from the top */
-  right: 300px; /* Adjust the distance from the right */
-  text-align: right; /* Align buttons to the right */
+
+
+.battery-percentage {
+  position: absolute;
+  top: 20px; /* Adjust the distance from the top */
+  right: 20px; /* Adjust the distance from the right */
+  color: white;
+  font-size: 26px;
+  font-weight: bold;
+  font-family: 'Roboto', sans-serif; /* Replace 'Your Font Name' with the desired font name */
+
+  /* Add any additional styling as needed */
 }
 
-.rectangular-button {
-  display: block;
-  width: 200px; /* Adjust button width */
-  height: 75px; /* Adjust button height */
-  margin-bottom: 10px; /* Adjust margin between buttons */
-  background-color: rgb(131, 0, 0); /* Button background color */
-  border: none;
-  color: rgb(255, 255, 255); /* Button text color */
-  font-size: 16px; /* Button text size */
-}
 
 /* other styles */
 html, body {
@@ -279,4 +276,70 @@ html, body {
   align-items: center;
   justify-content: right;
   background: rgb(0, 51, 160);
+  }
+
+  /* Add these styles at the end of your CSS file */
+
+  .navigation-mode-title {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  .side-buttons {
+  position: fixed;
+  top: 20px; /* Adjust the distance from the top */
+  right: 350px; /* Adjust the distance from the right */
+  text-align: right; /* Align buttons to the right */
+}
+
+  .rectangular-button {
+  display: block;
+  width: 200px; /* Adjust button width */
+  height: 75px; /* Adjust button height */
+  margin-bottom: 10px; /* Adjust margin between buttons */
+  background-color: rgb(131, 0, 0); /* Button background color */
+  border: none;
+  color: rgb(255, 255, 255); /* Button text color */
+  font-size: 16px; /* Button text size */
+}
+  .rectangular-button[disabled]{
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .speed-section {
+  position: fixed;
+  top: 250px; /* Adjust the distance from the top */
+  right: 350px; /* Adjust the distance from the right */
+  text-align: right; /* Align buttons to the right */
+}
+  /* Adjusted style for Speed Section buttons */
+  .robot-speed-title {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+
+  /* Adjusted style for Speed Section rectangular buttons */
+  .speed-section .speed-button {
+  display: block;
+  width: 200px; /* Adjust button width */
+  height: 75px; /* Adjust button height */
+  margin-bottom: 10px; /* Adjust margin between buttons */
+  background-color: rgb(131, 0, 0); /* Button background color */
+  border: none;
+  color: rgb(255, 255, 255); /* Button text color */
+  font-size: 16px; /* Button text size */
+  }
+
+  .speed-button[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed; /* Change cursor to not-allowed for disabled buttons */
   }
