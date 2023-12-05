@@ -325,7 +325,18 @@ html, body {
     margin-bottom: 10px;
     text-align: center;
   }
-  
+
+  .camera-window {
+  width: 320px; /* Adjust the width of the window */
+  height: 240px; /* Adjust the height of the window */
+  background-color: black; /* Set the background color of the window */
+  position: fixed;
+  top: 50%; /* Adjust the distance from the top */
+  left: 50px; /* Adjust the distance from the left */
+  transform: translate(-50%, -50%);
+  z-index: 1; /* Ensure the window is above other elements */
+}
+
 
   /* Adjusted style for Speed Section rectangular buttons */
   .speed-section .speed-button {
