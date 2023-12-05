@@ -26,9 +26,7 @@ backward_time = 0.2
 port = "/dev/ttyUSB0" # define port for the YDLidar X4
 Obj = PyLidar3.YdLidarX4(port) #PyLidar3.YDLidarX4(port,chunk_size)
 gen = 0
-Obj.Connect()
-print(Obj.GetDeviceInfo())
-gen = Obj.StartScanning()
+
 
 
 motor_thread_run = True
@@ -66,6 +64,9 @@ def drive():
 
 def lidar_scanner():
     global direction, centy, lefty, righty
+    Obj.Connect()
+    print(Obj.GetDeviceInfo())
+    gen = Obj.StartScanning()
     while True:
         data = next(gen) # get lidar scan data
         left_total = 0
@@ -141,8 +142,9 @@ async def server(websocket, path):
         if message == "Auto":
            task = asyncio.create_task(lidar_scanner())  # Start Lidar scanning as a separate task
         elif message == "Man":
-            task = asyncio.create_task(lidar_scanner()) 
             task.cancel()
+            Obj.StopScanning()
+            Obj.Disconnect()
         elif message == 'W':
             motor.go_forward(ser, speed)
         elif message == 'T':
