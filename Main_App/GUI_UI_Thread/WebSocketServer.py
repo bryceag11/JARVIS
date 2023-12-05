@@ -40,26 +40,42 @@ async def read_serial_and_broadcast(websocket, path):
 
 cap = cv2.VideoCapture(0)
 
-# video frame processing function
-def videocam(frame):
+# # video frame processing function
+# def videocam(frame):
 
-    # frame operations here
-    #gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+#     # frame operations here
+#     #gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-    # display the resulting frame
-    #rfr = cv2.resize(frame,(640,480))
-    #rfr = cv2.rotate(frame, cv2.ROTATE_90_COUNTERCLOCKWISE)
-    rfr = cv2.rotate(frame, cv2.ROTATE_90_CLOCKWISE)
-    #cv2.imshow('frame',rgray)
+#     # display the resulting frame
+#     #rfr = cv2.resize(frame,(640,480))
+#     #rfr = cv2.rotate(frame, cv2.ROTATE_90_COUNTERCLOCKWISE)
+#     rfr = cv2.rotate(frame, cv2.ROTATE_90_CLOCKWISE)
+#     #cv2.imshow('frame',rgray)
 
-    # colorReduce()
-    div = 64 
-    quantized = (rfr // div * div) + div // 2
-    # ksize
-    ksize = (10, 10) 
-    # Using cv2.blur() method 
-    quantized = cv2.blur(quantized, ksize) 
+#     # colorReduce()
+#     div = 64 
+#     quantized = (rfr // div * div) + div // 2
+#     # ksize
+#     ksize = (10, 10) 
+#     # Using cv2.blur() method 
+#     quantized = cv2.blur(quantized, ksize) 
 
+def display_camera_feed():
+    while True:
+        ret, frame = cap.read()  # Read a frame from the camera
+
+        if ret:
+            # Process the frame if needed (e.g., perform operations or manipulations)
+            # Display the frame in a window
+            cv2.imshow('Camera Feed', frame)
+
+        # Break the loop and close the window if 'q' is pressed
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+
+    # Release the camera and destroy the window
+    cap.release()
+    cv2.destroyAllWindows()
 
 
     cv2.line( rfr,
@@ -253,6 +269,7 @@ async def main():
         8000,
         subprotocols=["websocket"]
     )
+    display_camera_feed()
     await start_server
     await asyncio.Future()
 
