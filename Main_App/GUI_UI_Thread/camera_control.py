@@ -10,85 +10,61 @@ Usage: For use with a camera used for interpersonal communication. Create an ins
 
 
 
-Author: Bryce Grant
+Author: Erick Calvillo
 
 Class: EE491 (ECE Capstone II)
 """
 
 import serial
-import time
-
-
 
 class CameraControl:
-    def __init__(self):
-        self.ser = None
+    def __init__(self, arduino_port='/dev/ttyACM0'):
+        self.arduino_port = arduino_port
 
-    def connect_to_camera(self, port):
-        self.ser = serial.Serial()
-        self.ser.baudrate = 9600
-        self.ser.port = port
-        self.ser.open()
+    def connect_to_arduino(self, port):
+        ser = serial.Serial()
+        ser.baudrate = 9600
+        ser.port = port
+        ser.open()
 
-        if self.ser.is_open:
-            print("Successfully connected to port " + port + "\n")
+        if ser.is_open:
+            print(f"Successfully connected to Arduino on port {self.arduino_port}\n")
+            return ser
         else:
-            print("Failed to connect to port " + port + "\n")
-            print("Exiting program...")
-            exit()
+            print(f"Failed to connect to Arduino on port {self.arduino_port}\n")
+            return None
 
-    def go_up(self):
-        try:
-            self.ser.write(bytearray([49]))
-        except Exception as e:
-            print(e)
+    def move_left(self, serie):
+        serie.write(b'a')
 
-    def go_down(self):
-        try:
-            self.ser.write(bytearray([50]))
-        except Exception as e:
-            print(e)
+    def move_right(self, serie):
+        serie.write(b'd')
 
-    def go_left(self):
-        try:
-            self.ser.write(bytearray([51]))
-        except Exception as e:
-            print(e)
+    def move_up(self, serie):
+        serie.write(b'w')
 
-    def go_right(self):
-        try:
-            self.ser.write(bytearray([52]))
-        except Exception as e:
-            print(e)
+    def move_down(self, serie):
+        serie.write(b's')
 
-    def go_center(self):
-        try:
-            self.ser.write(bytearray([53]))
-        except Exception as e:
-            print(e)
+    def change_mode(self, serie):
+        serie.write(b'm')
 
-    def go_drive_mode(self):
-        try:
-            self.ser.write(bytearray([54]))
-        except Exception as e:
-            print(e)
+    # add if neededd
+    #def stop_motors(self):
+        # Send a stop signal or any other command as needed to stop motors
+        # pass
 
-    def initialize_camera(self):
-        print("Initializing camera to default settings...")
-        try:
-            self.go_center()
-            print("Finished setup...")
-        except OSError as e:
-            print(e)
-            print("Setup failed... Exiting now...\n")
-            exit()
-
-    def disconnect(self):
-        if self.ser.is_open:
-            self.ser.close()
-            print("Serial port closed.")
+    def close_connection(self, serie):
+        if serie.is_open:
+            serie.close()
+            print("Connection closed\n")
         else:
-            print("Serial port was not open.")
+            print("Connection is not open\n")
 
-    def __del__(self):
-        self.disconnect()
+# Example usage:
+# camera_controls = CameraControls()
+# camera_controls.move_left()
+# camera_controls.move_up()
+# camera_controls.change_mode()
+# camera_controls.stop_motors()
+# camera_controls.close_connection()
