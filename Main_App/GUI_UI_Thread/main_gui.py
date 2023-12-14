@@ -1,7 +1,7 @@
 """
 File Name: main_gui.py
 
-Description: Executable GUI script
+Description: Executable offline GUI script
 
 Usage: Make sure to have the necessary dependencies installed.
        Reference the motor_control usage
