@@ -3,32 +3,39 @@ import asyncio
 import websockets
 from motor_control import MotorCommands  # Import your existing MotorCommands class
 import functools
-from CameraControls import Camera_Control
+from camera_control import CameraControl
 import serial
 import time 
 import PyLidar3
 import threading
 import math
-import cv2
+import netifaces as ni
+
+'''
+Be sure to check ports if you disconnect and reconnect serial connections
+'''
+
 # Instantiate MotorCommands and connect motors
 motor = MotorCommands()
-cam = Camera_Control()
+cam = CameraControl()
 ser = motor.connect_motors("/dev/ttyUSB0")
 motor.initialize_motors(ser)
 camser = serial.Serial(port='/dev/ttyACM1', baudrate=9600,timeout=.015)
 print("//waiting for Serial connection...")
+
 bins=[]
 for _ in range (360):  # clear the bins
     bins.append(0)
-stop_distance = 900
-right_turn_distance = 1000
+
+stop_distance = 900 # Stopping distance of 900 millimeters
+right_turn_distance = 600
 backward_time = 0.2
 
 port = "/dev/ttyUSB1" # define port for the YDLidar X4
 Obj = PyLidar3.YdLidarX4(port) #PyLidar3.YDLidarX4(port,chunk_size)
 gen = 0
 
-
+nucIP = ni.ifaddresses('wlo1')[ni.AF_INET][0]['addr'] # Get nucIP address
 
 motor_thread_run = True
 async def read_serial_and_broadcast(websocket, path):
@@ -38,67 +45,10 @@ async def read_serial_and_broadcast(websocket, path):
         await websocket.send(data)
         await asyncio.sleep(0.1)
 
-cap = cv2.VideoCapture(0)
-
-# # video frame processing function
-# def videocam(frame):
-
-#     # frame operations here
-#     #gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-
-#     # display the resulting frame
-#     #rfr = cv2.resize(frame,(640,480))
-#     #rfr = cv2.rotate(frame, cv2.ROTATE_90_COUNTERCLOCKWISE)
-#     rfr = cv2.rotate(frame, cv2.ROTATE_90_CLOCKWISE)
-#     #cv2.imshow('frame',rgray)
-
-#     # colorReduce()
-#     div = 64 
-#     quantized = (rfr // div * div) + div // 2
-#     # ksize
-#     ksize = (10, 10) 
-#     # Using cv2.blur() method 
-#     quantized = cv2.blur(quantized, ksize) 
-
-def display_camera_feed():
-    while True:
-        ret, frame = cap.read()  # Read a frame from the camera
-
-        if ret:
-            # Process the frame if needed (e.g., perform operations or manipulations)
-            # Display the frame in a window
-            cv2.imshow('Camera Feed', frame)
-
-        # Break the loop and close the window if 'q' is pressed
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
-
-    # Release the camera and destroy the window
-    cap.release()
-    cv2.destroyAllWindows()
-
-
-    cv2.line( rfr,
-            (0,int(rfr.shape[0]/2)),
-            (int(rfr.shape[1]), int(rfr.shape[0]/2)),
-            (0, 255, 0), 1)
-
-    cv2.line( rfr,
-            (int(rfr.shape[1]/2),0),
-            (int(rfr.shape[1]/2), int(rfr.shape[0])),
-            (0, 255, 0), 1)
-
-    cv2.imshow('frame',rfr)
-    #cv2.imshow('quantized',quantized)
-
-    return rfr  
-
 def drive():
     global motor_thread_run
 
     while motor_thread_run:
-                ret, frame = cap.read()
-                if ret: frm = videocam(frame)
                 if centy < stop_distance:     
                     motor.stop_motors(ser)
                     print("JARVIS detected object{}")
@@ -125,6 +75,7 @@ def lidar_scanner():
     Obj.Connect()
     print(Obj.GetDeviceInfo())
     gen = Obj.StartScanning()
+
     while True:
         data = next(gen) # get lidar scan data
         left_total = 0
@@ -190,6 +141,7 @@ def lidar_scanner():
         else:
             motor.go_forward(ser, 25)
 
+
 # Define the WebSocket server logic
 async def server(websocket, path):
     # Process incoming messages from the WebSocket client
@@ -199,10 +151,10 @@ async def server(websocket, path):
         # Handle the message using MotorCommands methods
         if message == "Auto":
            task = asyncio.create_task(lidar_scanner())  # Start Lidar scanning as a separate task
+           Obj.StopScanning()
+           Obj.Disconnect()
         elif message == "Man":
             task.cancel()
-            Obj.StopScanning()
-            Obj.Disconnect()
         elif message == 'W':
             motor.go_forward(ser, speed)
         elif message == 'T':
@@ -227,7 +179,7 @@ async def server(websocket, path):
             time.sleep(0.2)            
         elif message == 'u':
             cam.move_right(camser)
-            time.sleep(0.2)  
+            time.sleep(0.2)   
         elif message == 'p':
             cam.move_down(camser)
             time.sleep(0.2)
@@ -247,7 +199,7 @@ async def server(websocket, path):
 async def check_origin(headers):
     # Check the 'Origin' header to ensure it's allowed
     origin = headers.get("Origin", None)
-    if origin == "http://10.47.232.1:3000":
+    if origin == f"http://{nucIP}:3000":
         return True  # Allow connections from this origin
     else:
         return False  # Reject connections from other origins
@@ -264,12 +216,11 @@ async def start_websocket_server(websocket, path):
 async def main():
     start_server = websockets.serve(
         start_websocket_server,
-        "10.47.232.1",
+        nucIP,
         # "0.0.0.0",
         8000,
         subprotocols=["websocket"]
     )
-    display_camera_feed()
     await start_server
     await asyncio.Future()
 
