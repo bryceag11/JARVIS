@@ -22,9 +22,12 @@ pip install -r requirements.txt
 cd Main_App/GUI_UI_Thread 
 python WebSocketServer.py
 
-#The websocket IP address will need to be changed within cdn.html
+# The websocket IP address will need to be changed within cdn.html
 cd Web_Server/Components
 npm start
+
+# Once in the user interface, input a random number for meeting ID
+![image](https://github.com/bryceag11/JARVIS/assets/67086260/3c7a689b-9391-439d-8c3b-3f40b336b0c6)
 
 ## Offline GUI Usage
 ### Launch the main program
