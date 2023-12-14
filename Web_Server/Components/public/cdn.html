@@ -35,8 +35,6 @@
 </head>
 
 <body style ="background-color: navy;">
-  <div class="camera-window"></div>
-  <div class="camera-window"></div>
   <div class ="battery-percentage">
     <span id="battery-value"></span>
   </div>
@@ -147,7 +145,8 @@
 </body>
 
 <script>
-  let socket = new WebSocket("ws://10.47.244.128:8000/");
+  // Change below statement according to nucIP
+  let socket = new WebSocket("ws://10.47.178.132:8000/");
 
   socket.addEventListener("open", function(event) {
     console.log("[open] Connection established");
