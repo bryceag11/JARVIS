@@ -22,7 +22,7 @@ pip install -r requirements.txt
 cd Main_App/GUI_UI_Thread 
 python WebSocketServer.py
 
-### The websocket IP address will need to be changed from 
+#The websocket IP address will need to be changed within cdn.html
 cd Web_Server/Components
 npm start
 
